@@ -150,6 +150,9 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     if (options_.face_has_color() && userOptions_.face_has_color()) {
         _opt += Options::FaceColor;
     }
+    if (options_.face_has_texcoord() && userOptions_.face_has_texcoord()) {
+        _opt += Options::FaceTexCoord;
+    }
     if (options_.is_binary()) {
         _opt += Options::Binary;
     }
@@ -328,12 +331,15 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
 
     unsigned int i, j, k, l, idx;
     unsigned int nV;
+    unsigned int nTC;
     OpenMesh::Vec3f        v, n;  // Vertex
     OpenMesh::Vec2f        t;  // TexCoords
     BaseImporter::VHandles vhandles;
     VertexHandle           vh;
     OpenMesh::Vec4i        c;  // Color
     float                  tmp;
+    FaceHandle             fh;
+    std::vector<Vec2f>     face_texcoords;
 
     _bi.reserve(vertexCount_, 3* vertexCount_ , faceCount_);
 
@@ -436,27 +442,53 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
     }
 
     for (i = 0; i < faceCount_; ++i) {
-        // Read number of vertices for the current face
-        readValue(faceIndexType_, _in, nV);
+        for (uint propertyIndex = 0; propertyIndex < faceListPropertyCount_; ++propertyIndex) {
+            ValueType indexType = faceListPropertyMap_[propertyIndex].second.first;
+            ValueType valueType = faceListPropertyMap_[propertyIndex].second.second;
+            switch (faceListPropertyMap_[propertyIndex].first) {
+                case FP_INDICES:
+                    // Read number of vertices for the current face
+                    readValue(indexType, _in, nV);
+                    if (nV == 3) {
+                        vhandles.resize(3);
+                        readInteger(valueType, _in, j);
+                        readInteger(valueType, _in, k);
+                        readInteger(valueType, _in, l);
 
-        if (nV == 3) {
-            vhandles.resize(3);
-            readInteger(faceEntryType_, _in, j);
-            readInteger(faceEntryType_, _in, k);
-            readInteger(faceEntryType_, _in, l);
-
-            vhandles[0] = VertexHandle(j);
-            vhandles[1] = VertexHandle(k);
-            vhandles[2] = VertexHandle(l);
-        } else {
-            vhandles.clear();
-            for (j = 0; j < nV; ++j) {
-                readInteger(faceEntryType_, _in, idx);
-                vhandles.push_back(VertexHandle(idx));
+                        vhandles[0] = VertexHandle(j);
+                        vhandles[1] = VertexHandle(k);
+                        vhandles[2] = VertexHandle(l);
+                    } else {
+                        vhandles.clear();
+                        for (j = 0; j < nV; ++j) {
+                            readInteger(valueType, _in, idx);
+                            vhandles.push_back(VertexHandle(idx));
+                        }
+                    }
+                    break;
+                case FP_TEXCOORD:
+                    readValue(indexType, _in, nTC);
+                    if (nTC == 6) {
+                        face_texcoords.resize(3);
+                        for (int j = 0; j < 3; ++j) {
+                            readValue(valueType, _in, t[0]);
+                            readValue(valueType, _in, t[1]);
+                            face_texcoords[j] = t;
+                        }
+                    } else {
+                        omerr() << "Expected 6 texture coordinates for face." << std::endl;
+                        return false;
+                    }
+                    break;
+                default:
+                    omerr() << "Unsupported property" << std::endl;
+                    return false;
+                    break;
             }
         }
-
-        FaceHandle fh = _bi.add_face(vhandles);
+        fh = _bi.add_face(vhandles);
+        if (_opt.face_has_texcoord())
+          _bi.add_face_texcoords(fh, vhandles[0], face_texcoords);
     }
 
     return true;
@@ -846,6 +878,10 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
     vertexPropertyMap_.clear();
     vertexPropertyCount_ = 0;
 
+    // clear face list property map, will be recreated
+    faceListPropertyMap_.clear();
+    faceListPropertyCount_ = 0;
+
     // read 1st line
     std::string line;
     std::getline(_is, line);
@@ -925,28 +961,50 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
                     _is >> listEntryType;
                     _is >> propertyName;
 
+                    ValueType indexType = Unsupported;
                     if (listIndexType == "uint8") {
-                        faceIndexType_ = ValueTypeUINT8;
+                        indexType = ValueTypeUINT8;
                     } else if (listIndexType == "uchar") {
-                        faceIndexType_ = ValueTypeUCHAR;
+                        indexType = ValueTypeUCHAR;
                     } else {
                         omerr() << "Unsupported Index type for face list: " << listIndexType << std::endl;
                         return false;
                     }
 
-                    if (listEntryType == "int32") {
-                        faceEntryType_ = ValueTypeINT32;
-                    } else if (listEntryType == "int") {
-                        faceEntryType_ = ValueTypeINT;
-                    } else if (listEntryType == "uint32") {
-                        faceEntryType_ = ValueTypeUINT32;
-                    } else if (listEntryType == "uint") {
-                        faceEntryType_ = ValueTypeUINT;
+                    if (propertyName == "vertex_indices" || propertyName == "vertex_index") {
+                        ValueType valueType = Unsupported;
+                        if (listEntryType == "int32") {
+                            valueType = ValueTypeINT32;
+                        } else if (listEntryType == "int") {
+                            valueType = ValueTypeINT;
+                        } else if (listEntryType == "uint32") {
+                            valueType = ValueTypeUINT32;
+                        } else if (listEntryType == "uint") {
+                            valueType = ValueTypeUINT;
+                        } else {
+                            omerr() << "Unsupported Entry type for face list: " << listEntryType << std::endl;
+                            return false;
+                        }
+                        IndexAndValueType typeTuple(indexType, valueType);
+                        std::pair<FaceProperty, IndexAndValueType> entry(FP_INDICES, typeTuple);
+                        faceListPropertyMap_[faceListPropertyCount_] = entry;
+                    } else if (propertyName == "texcoord") {
+                        ValueType valueType = Unsupported;
+                        if (listEntryType == "float") {
+                            valueType = ValueTypeFLOAT;
+                        } else {
+                            omerr() << "Unsupported Entry type for texcoord list: " << listEntryType << std::endl;
+                            return false;
+                        }
+                        IndexAndValueType typeTuple(indexType, valueType);
+                        std::pair<FaceProperty, IndexAndValueType> entry(FP_TEXCOORD, typeTuple);
+                        faceListPropertyMap_[faceListPropertyCount_] = entry;
+                        options_ += Options::FaceTexCoord;
                     } else {
-                        omerr() << "Unsupported Entry type for face list: " << listEntryType << std::endl;
+                        omerr() << "Unsupported property : " << propertyName << std::endl;
                         return false;
                     }
-
+                    faceListPropertyCount_++;
                 }
             } else {
                 // as this is not a list property, read second value of property

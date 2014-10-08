@@ -157,9 +157,6 @@ private:
   mutable ValueType vertexType_;
   mutable uint vertexDimension_;
 
-  mutable ValueType faceIndexType_;
-  mutable ValueType faceEntryType_;
-
   enum VertexProperty {
     XCOORD,YCOORD,ZCOORD,
     TEXX,TEXY,
@@ -168,12 +165,23 @@ private:
     UNSUPPORTED
   };
 
+  enum FaceProperty {
+    FP_INDICES,
+    FP_TEXCOORD,
+    FP_UNSUPPORTED
+  };
+
   /// Stores sizes of property types
   mutable std::map<ValueType, int> scalar_size_;
 
   // Number of vertex properties
   mutable unsigned int vertexPropertyCount_;
   mutable std::map< int , std::pair< VertexProperty, ValueType> > vertexPropertyMap_;
+
+  // Number of face properties
+  mutable unsigned int faceListPropertyCount_;
+  typedef std::pair< ValueType, ValueType > IndexAndValueType;
+  mutable std::map< int , std::pair< FaceProperty, IndexAndValueType> > faceListPropertyMap_;
 
 };
 
