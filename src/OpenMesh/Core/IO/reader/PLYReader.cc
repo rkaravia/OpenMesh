@@ -339,6 +339,7 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
     OpenMesh::Vec4i        c;  // Color
     float                  tmp;
     FaceHandle             fh;
+    ValueType              indexType, valueType;
     std::vector<Vec2f>     face_texcoords;
 
     _bi.reserve(vertexCount_, 3* vertexCount_ , faceCount_);
@@ -443,8 +444,8 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
 
     for (i = 0; i < faceCount_; ++i) {
         for (uint propertyIndex = 0; propertyIndex < faceListPropertyCount_; ++propertyIndex) {
-            ValueType indexType = faceListPropertyMap_[propertyIndex].second.first;
-            ValueType valueType = faceListPropertyMap_[propertyIndex].second.second;
+            indexType = faceListPropertyMap_[propertyIndex].second.first;
+            valueType = faceListPropertyMap_[propertyIndex].second.second;
             switch (faceListPropertyMap_[propertyIndex].first) {
                 case FP_INDICES:
                     // Read number of vertices for the current face
@@ -971,7 +972,20 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
                         return false;
                     }
 
-                    if (propertyName == "vertex_indices" || propertyName == "vertex_index") {
+                    if (propertyName == "texcoord") {
+                        ValueType valueType = Unsupported;
+                        if (listEntryType == "float") {
+                            valueType = ValueTypeFLOAT;
+                        } else {
+                            omerr() << "Unsupported Entry type for texcoord list: " << listEntryType << std::endl;
+                            return false;
+                        }
+                        IndexAndValueType typeTuple(indexType, valueType);
+                        std::pair<FaceProperty, IndexAndValueType> entry(FP_TEXCOORD, typeTuple);
+                        faceListPropertyMap_[faceListPropertyCount_] = entry;
+                        options_ += Options::FaceTexCoord;
+                    } else {
+                        // Assume vertex indices list for all other property names
                         ValueType valueType = Unsupported;
                         if (listEntryType == "int32") {
                             valueType = ValueTypeINT32;
@@ -988,21 +1002,6 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
                         IndexAndValueType typeTuple(indexType, valueType);
                         std::pair<FaceProperty, IndexAndValueType> entry(FP_INDICES, typeTuple);
                         faceListPropertyMap_[faceListPropertyCount_] = entry;
-                    } else if (propertyName == "texcoord") {
-                        ValueType valueType = Unsupported;
-                        if (listEntryType == "float") {
-                            valueType = ValueTypeFLOAT;
-                        } else {
-                            omerr() << "Unsupported Entry type for texcoord list: " << listEntryType << std::endl;
-                            return false;
-                        }
-                        IndexAndValueType typeTuple(indexType, valueType);
-                        std::pair<FaceProperty, IndexAndValueType> entry(FP_TEXCOORD, typeTuple);
-                        faceListPropertyMap_[faceListPropertyCount_] = entry;
-                        options_ += Options::FaceTexCoord;
-                    } else {
-                        omerr() << "Unsupported property : " << propertyName << std::endl;
-                        return false;
                     }
                     faceListPropertyCount_++;
                 }
