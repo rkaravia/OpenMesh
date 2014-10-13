@@ -94,6 +94,7 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
     omerr() << "[PLYWriter] : Warning: Face normals are not supported and thus not exported! " << std::endl;
   }
 
+  /*
   if ( _opt.check(Options::FaceColor) ) {
     // Face normals are not supported
     // Uncheck these options and output message that
@@ -101,6 +102,7 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
     _opt.unset(Options::FaceColor);
     omerr() << "[PLYWriter] : Warning: Face colors are not supported and thus not exported! " << std::endl;
   }
+  */
 
   options_ = _opt;
 
@@ -219,7 +221,27 @@ void _PLYWriter_::write_header(std::ostream& _out, BaseExporter& _be, Options& _
   }
 
   _out << "element face " << _be.n_faces() << std::endl;
+
   _out << "property list uchar int vertex_indices" << std::endl;
+
+  if ( _opt.face_has_color() ){
+    if ( _opt.color_is_float() ) {
+      _out << "property float red" << std::endl;
+      _out << "property float green" << std::endl;
+      _out << "property float blue" << std::endl;
+
+      if ( _opt.color_has_alpha() )
+        _out << "property float alpha" << std::endl;
+    } else {
+      _out << "property uchar red" << std::endl;
+      _out << "property uchar green" << std::endl;
+      _out << "property uchar blue" << std::endl;
+
+      if ( _opt.color_has_alpha() )
+        _out << "property uchar alpha" << std::endl;
+    }
+  }
+
   _out << "end_header" << std::endl;
 }
 
@@ -305,18 +327,18 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
       _out << vhandles[1].idx()  << " ";
       _out << vhandles[2].idx();
 
-//       //face color
-//       if ( _opt.face_has_color() ){
-//         //with alpha
-//         if ( _opt.color_has_alpha() ){
-//           cA  = _be.colorA( FaceHandle(i) );
-//           _out << " " << cA[0] << " " << cA[1] << " " << cA[2] << " " << cA[3];
-//         }else{
-//           //without alpha
-//           c  = _be.color( FaceHandle(i) );
-//           _out << " " << c[0] << " " << c[1] << " " << c[2];
-//         }
-//       }
+       //face color
+       if ( _opt.face_has_color() ){
+         //with alpha
+         if ( _opt.color_has_alpha() ){
+           cA  = _be.colorA( FaceHandle(i) );
+           _out << " " << cA[0] << " " << cA[1] << " " << cA[2] << " " << cA[3];
+         }else{
+           //without alpha
+           c  = _be.color( FaceHandle(i) );
+           _out << " " << c[0] << " " << c[1] << " " << c[2];
+         }
+       }
       _out << "\n";
     }
   }
@@ -329,18 +351,18 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
       for (size_t j=0; j<vhandles.size(); ++j)
          _out << vhandles[j].idx() << " ";
 
-//       //face color
-//       if ( _opt.face_has_color() ){
-//         //with alpha
-//         if ( _opt.color_has_alpha() ){
-//           cA  = _be.colorA( FaceHandle(i) );
-//           _out << cA[0] << " " << cA[1] << " " << cA[2] << " " << cA[3];
-//         }else{
-//           //without alpha
-//           c  = _be.color( FaceHandle(i) );
-//           _out << c[0] << " " << c[1] << " " << c[2];
-//         }
-//       }
+       //face color
+       if ( _opt.face_has_color() ){
+         //with alpha
+         if ( _opt.color_has_alpha() ){
+           cA  = _be.colorA( FaceHandle(i) );
+           _out << cA[0] << " " << cA[1] << " " << cA[2] << " " << cA[3];
+         }else{
+           //without alpha
+           c  = _be.color( FaceHandle(i) );
+           _out << c[0] << " " << c[1] << " " << c[2];
+         }
+       }
 
       _out << "\n";
     }
@@ -488,16 +510,26 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
       writeValue(ValueTypeINT32, _out, vhandles[1].idx());
       writeValue(ValueTypeINT32, _out, vhandles[2].idx());
 
-//       //face color
-//       if ( _opt.face_has_color() ){
-//         c  = _be.colorA( FaceHandle(i) );
-//         writeValue(_out, c[0]);
-//         writeValue(_out, c[1]);
-//         writeValue(_out, c[2]);
-//
-//         if ( _opt.color_has_alpha() )
-//           writeValue(_out, c[3]);
-//       }
+       //face color
+       if ( _opt.face_has_color() ){
+           if ( _opt.color_is_float() ) {
+             cf  = _be.colorAf(FaceHandle(i));
+             writeValue(ValueTypeFLOAT, _out, cf[0]);
+             writeValue(ValueTypeFLOAT, _out, cf[1]);
+             writeValue(ValueTypeFLOAT, _out, cf[2]);
+
+             if ( _opt.color_has_alpha() )
+               writeValue(ValueTypeFLOAT, _out, cf[3]);
+           } else {
+             c  = _be.colorA(FaceHandle(i));
+             writeValue(ValueTypeUCHAR, _out, (int)c[0]);
+             writeValue(ValueTypeUCHAR, _out, (int)c[1]);
+             writeValue(ValueTypeUCHAR, _out, (int)c[2]);
+
+             if ( _opt.color_has_alpha() )
+               writeValue(ValueTypeUCHAR, _out, (int)c[3]);
+           }
+       }
     }
   }
   else
@@ -510,16 +542,26 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
       for (size_t j=0; j<vhandles.size(); ++j)
         writeValue(ValueTypeINT32, _out, vhandles[j].idx() );
 
-//       //face color
-//       if ( _opt.face_has_color() ){
-//         c  = _be.colorA( FaceHandle(i) );
-//         writeValue(_out, c[0]);
-//         writeValue(_out, c[1]);
-//         writeValue(_out, c[2]);
-//
-//         if ( _opt.color_has_alpha() )
-//           writeValue(_out, c[3]);
-//       }
+       //face color
+       if ( _opt.face_has_color() ){
+           if ( _opt.color_is_float() ) {
+             cf  = _be.colorAf(FaceHandle(i));
+             writeValue(ValueTypeFLOAT, _out, cf[0]);
+             writeValue(ValueTypeFLOAT, _out, cf[1]);
+             writeValue(ValueTypeFLOAT, _out, cf[2]);
+
+             if ( _opt.color_has_alpha() )
+               writeValue(ValueTypeFLOAT, _out, cf[3]);
+           } else {
+             c  = _be.colorA(FaceHandle(i));
+             writeValue(ValueTypeUCHAR, _out, (int)c[0]);
+             writeValue(ValueTypeUCHAR, _out, (int)c[1]);
+             writeValue(ValueTypeUCHAR, _out, (int)c[2]);
+
+             if ( _opt.color_has_alpha() )
+               writeValue(ValueTypeUCHAR, _out, (int)c[3]);
+           }
+       }
     }
   }
 
