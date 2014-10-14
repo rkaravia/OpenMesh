@@ -265,6 +265,17 @@ public:
       : Vec4f(0, 0, 0, 0));
   }
 
+  void texcoords(FaceHandle _fh, std::vector<Vec2f>& _texcoords)   const
+  {
+    _texcoords.clear();
+    for (typename Mesh::CFHIter fh_it=mesh_.cfh_iter(_fh); fh_it.is_valid(); ++fh_it)
+    {
+      _texcoords.push_back(mesh_.has_halfedge_texcoords2D()
+                           ? vector_cast<Vec2f>(mesh_.texcoord2D(*fh_it))
+                           : Vec2f(0.0f, 0.0f));
+    }
+  }
+
   virtual const BaseKernel* kernel() { return &mesh_; }
 
 

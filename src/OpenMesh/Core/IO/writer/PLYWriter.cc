@@ -94,16 +94,6 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
     omerr() << "[PLYWriter] : Warning: Face normals are not supported and thus not exported! " << std::endl;
   }
 
-  /*
-  if ( _opt.check(Options::FaceColor) ) {
-    // Face normals are not supported
-    // Uncheck these options and output message that
-    // they are not written out even though they were requested
-    _opt.unset(Options::FaceColor);
-    omerr() << "[PLYWriter] : Warning: Face colors are not supported and thus not exported! " << std::endl;
-  }
-  */
-
   options_ = _opt;
 
   // open file
@@ -223,6 +213,10 @@ void _PLYWriter_::write_header(std::ostream& _out, BaseExporter& _be, Options& _
   _out << "element face " << _be.n_faces() << std::endl;
 
   _out << "property list uchar int vertex_indices" << std::endl;
+
+  if ( _opt.face_has_texcoord() ) {
+    _out << "property list uchar float texcoord" << std::endl;
+  }
 
   if ( _opt.face_has_color() ){
     if ( _opt.color_is_float() ) {
@@ -440,13 +434,14 @@ _PLYWriter_::
 write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
 {
   
-  unsigned int i, nV, nF;
+  unsigned int i, j, nV, nF;
   Vec3f v, n;
   Vec2f t;
   OpenMesh::Vec4uc c;
   OpenMesh::Vec4f cf;
   VertexHandle vh;
   std::vector<VertexHandle> vhandles;
+  std::vector<Vec2f> texcoords;
 
   write_header(_out, _be, _opt);
 
@@ -510,26 +505,36 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
       writeValue(ValueTypeINT32, _out, vhandles[1].idx());
       writeValue(ValueTypeINT32, _out, vhandles[2].idx());
 
-       //face color
-       if ( _opt.face_has_color() ){
-           if ( _opt.color_is_float() ) {
-             cf  = _be.colorAf(FaceHandle(i));
-             writeValue(ValueTypeFLOAT, _out, cf[0]);
-             writeValue(ValueTypeFLOAT, _out, cf[1]);
-             writeValue(ValueTypeFLOAT, _out, cf[2]);
+      // Face TexCoords
+      if ( _opt.face_has_texcoord() ) {
+          _be.texcoords(FaceHandle(i), texcoords);
+          for (j=0; j<3; ++j)
+          {
+            writeValue(ValueTypeFLOAT, _out, texcoords[j][0]);
+            writeValue(ValueTypeFLOAT, _out, texcoords[j][1]);
+          }
+      }
 
-             if ( _opt.color_has_alpha() )
-               writeValue(ValueTypeFLOAT, _out, cf[3]);
-           } else {
-             c  = _be.colorA(FaceHandle(i));
-             writeValue(ValueTypeUCHAR, _out, (int)c[0]);
-             writeValue(ValueTypeUCHAR, _out, (int)c[1]);
-             writeValue(ValueTypeUCHAR, _out, (int)c[2]);
+      //face color
+      if ( _opt.face_has_color() ){
+          if ( _opt.color_is_float() ) {
+            cf  = _be.colorAf(FaceHandle(i));
+            writeValue(ValueTypeFLOAT, _out, cf[0]);
+            writeValue(ValueTypeFLOAT, _out, cf[1]);
+            writeValue(ValueTypeFLOAT, _out, cf[2]);
 
-             if ( _opt.color_has_alpha() )
-               writeValue(ValueTypeUCHAR, _out, (int)c[3]);
-           }
-       }
+            if ( _opt.color_has_alpha() )
+              writeValue(ValueTypeFLOAT, _out, cf[3]);
+          } else {
+            c  = _be.colorA(FaceHandle(i));
+            writeValue(ValueTypeUCHAR, _out, (int)c[0]);
+            writeValue(ValueTypeUCHAR, _out, (int)c[1]);
+            writeValue(ValueTypeUCHAR, _out, (int)c[2]);
+
+            if ( _opt.color_has_alpha() )
+              writeValue(ValueTypeUCHAR, _out, (int)c[3]);
+          }
+      }
     }
   }
   else
@@ -575,6 +580,8 @@ size_t
 _PLYWriter_::
 binary_size(BaseExporter& _be, Options _opt) const
 {
+  // TODO: header size calculation is unadapted copy-pasta from OFFWriter, the
+  // result is not correct
   size_t header(0);
   size_t data(0);
   size_t _3floats(3*sizeof(float));

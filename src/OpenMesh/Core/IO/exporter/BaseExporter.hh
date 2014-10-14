@@ -109,6 +109,9 @@ public:
   virtual Vec4ui colorAi(FaceHandle _fh)   const = 0;
   virtual Vec3f colorf(FaceHandle _fh)    const = 0;
   virtual Vec4f colorAf(FaceHandle _fh)   const = 0;
+  virtual void
+  texcoords(FaceHandle _fh,
+            std::vector<Vec2f>& _texcoords) const = 0;
 
   // get edge data
   virtual Vec3uc color(EdgeHandle _eh)    const = 0;
