@@ -175,6 +175,10 @@ void _PLYWriter_::write_header(std::ostream& _out, BaseExporter& _be, Options& _
   } else
     _out << "format ascii 1.0" << std::endl;
 
+  if ( _opt.mesh_has_texfile() ){
+    _out << "comment TextureFile " << _be.texfile() << std::endl;
+  }
+
   _out << "element vertex " << _be.n_vertices() << std::endl;
 
   _out << "property float x" << std::endl;

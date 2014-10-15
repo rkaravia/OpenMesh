@@ -88,6 +88,7 @@ public:
   typedef typename MeshItems::TexCoord3D    TexCoord3D;
   typedef typename MeshItems::Scalar        Scalar;
   typedef typename MeshItems::TextureIndex  TextureIndex;
+  typedef typename MeshItems::TexFile       TexFile;
 
   typedef typename MeshItems::VertexData    VertexData;
   typedef typename MeshItems::HalfedgeData  HalfedgeData;
@@ -100,7 +101,8 @@ public:
     VAttribs = MeshItems::VAttribs,
     HAttribs = MeshItems::HAttribs,
     EAttribs = MeshItems::EAttribs,
-    FAttribs = MeshItems::FAttribs
+    FAttribs = MeshItems::FAttribs,
+    MAttribs = MeshItems::MAttribs
   };
 
   typedef VPropHandleT<VertexData>              DataVPropHandle;
@@ -126,7 +128,8 @@ public:
     refcount_ecolors_(0),
     refcount_fnormals_(0),
     refcount_fcolors_(0),
-    refcount_ftextureIndex_(0)
+    refcount_ftextureIndex_(0),
+    refcount_mtexfile_(0)
   {
     this->add_property( points_, "v:points" );
 
@@ -183,6 +186,9 @@ public:
 
     if (FAttribs & Attributes::TextureIndex)
       request_face_texture_index();
+
+    if (MAttribs & Attributes::TexFile)
+      request_mesh_texfile();
 
     //FIXME: data properties might actually cost storage even
     //if there are no data traits??
@@ -400,6 +406,14 @@ public:
   void set_color(FaceHandle _fh, const Color& _c)
   { this->property(face_colors_, _fh) = _c; }
 
+  //--------------------------------------------------------------- texture file
+
+  const TexFile& texfile() const
+  { return this->property(mesh_texfile_); }
+
+  void set_texfile(const TexFile& _texfile)
+  { this->property(mesh_texfile_) = _texfile; }
+
   //------------------------------------------------ request / alloc properties
 
   void request_vertex_normals()
@@ -486,6 +500,12 @@ public:
       this->add_property( face_texture_index_, "f:textureindex" );
   }
 
+  void request_mesh_texfile()
+  {
+    if (!refcount_mtexfile_++)
+      this->add_property( mesh_texfile_, "m:texfile" );
+  }
+
   //------------------------------------------------- release / free properties
 
   void release_vertex_normals()
@@ -566,6 +586,12 @@ public:
       this->remove_property(face_texture_index_);
   }
 
+  void release_mesh_texfile()
+  {
+    if ((refcount_mtexfile_ > 0) && (! --refcount_mtexfile_))
+      this->remove_property(mesh_texfile_);
+  }
+
   //---------------------------------------------- dynamic check for properties
 
   bool has_vertex_normals()       const { return vertex_normals_.is_valid();      }
@@ -582,6 +608,7 @@ public:
   bool has_face_normals()         const { return face_normals_.is_valid();        }
   bool has_face_colors()          const { return face_colors_.is_valid();         }
   bool has_face_texture_index()   const { return face_texture_index_.is_valid();  }
+  bool has_mesh_texfile()         const { return mesh_texfile_.is_valid();        }
 
 public:
 
@@ -600,6 +627,7 @@ public:
   typedef FPropHandleT<Normal>              FaceNormalsPropertyHandle;
   typedef FPropHandleT<Color>               FaceColorsPropertyHandle;
   typedef FPropHandleT<TextureIndex>        FaceTextureIndexPropertyHandle;
+  typedef MPropHandleT<TexFile>             MeshTexFilePropertyHandle;
 
 public:
   //standard vertex properties
@@ -654,6 +682,10 @@ public:
   FaceTextureIndexPropertyHandle            face_texture_index_pph() const
   { return face_texture_index_; }
 
+  //standard mesh properties
+  MeshTexFilePropertyHandle                 mesh_texfile_pph() const
+  { return mesh_texfile_; }
+
   VertexData&                               data(VertexHandle _vh)
   { return this->property(data_vpph_, _vh); }
 
@@ -698,6 +730,8 @@ private:
   FaceNormalsPropertyHandle                 face_normals_;
   FaceColorsPropertyHandle                  face_colors_;
   FaceTextureIndexPropertyHandle            face_texture_index_;
+  //standard mesh properties
+  MeshTexFilePropertyHandle                 mesh_texfile_;
   //data properties handles
   DataVPropHandle                           data_vpph_;
   DataHPropHandle                           data_hpph_;
@@ -718,6 +752,7 @@ private:
   unsigned int                              refcount_fnormals_;
   unsigned int                              refcount_fcolors_;
   unsigned int                              refcount_ftextureIndex_;
+  unsigned int                              refcount_mtexfile_;
 };
 
 //=============================================================================

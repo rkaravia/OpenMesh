@@ -106,8 +106,9 @@ public:
       FaceNormal     = 0x0100, ///< Has (r) / store (w) face normals
       FaceColor      = 0x0200, ///< Has (r) / store (w) face colors
       FaceTexCoord   = 0x0400, ///< Has (r) / store (w) face texture coordinates
-      ColorAlpha     = 0x0800,  ///< Has (r) / store (w) alpha values for colors
-      ColorFloat     = 0x1000  ///< Has (r) / store (w) float values for colors (currently only implemented for PLY and OFF files)
+      ColorAlpha     = 0x0800, ///< Has (r) / store (w) alpha values for colors
+      ColorFloat     = 0x1000, ///< Has (r) / store (w) float values for colors (currently only implemented for PLY and OFF files)
+      TexFile        = 0x2000  ///< Has (r) / store (w) texture file string
   };
 
 public:
@@ -204,6 +205,7 @@ public:
   bool face_has_texcoord()   const { return check(FaceTexCoord); }
   bool color_has_alpha()     const { return check(ColorAlpha); }
   bool color_is_float()      const { return check(ColorFloat); }
+  bool mesh_has_texfile()    const { return check(TexFile); }
 
 
   /// Returns true if _rhs has the same options enabled.

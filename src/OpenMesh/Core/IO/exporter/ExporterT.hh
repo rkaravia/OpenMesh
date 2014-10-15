@@ -276,6 +276,15 @@ public:
     }
   }
 
+  // get mesh data
+
+  std::string texfile()   const
+  {
+    return (mesh_.has_mesh_texfile()
+            ? mesh_.texfile()
+            : "");
+  }
+
   virtual const BaseKernel* kernel() { return &mesh_; }
 
 
@@ -295,6 +304,8 @@ public:
   bool has_edge_colors()      const { return mesh_.has_edge_colors();      }
   bool has_face_normals()     const { return mesh_.has_face_normals();     }
   bool has_face_colors()      const { return mesh_.has_face_colors();      }
+  bool has_face_texcoords()   const { return mesh_.has_halfedge_texcoords2D(); }
+  bool has_mesh_texfile()     const { return mesh_.has_mesh_texfile(); }
 
 private:
 

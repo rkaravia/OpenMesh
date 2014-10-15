@@ -77,6 +77,7 @@ struct FinalMeshItemsT
     typedef typename Traits::TexCoord2D       TexCoord2D;
     typedef typename Traits::TexCoord3D       TexCoord3D;
     typedef typename Traits::TextureIndex     TextureIndex;
+    typedef typename Traits::TexFile          TexFile;
     typedef OpenMesh::VertexHandle            VertexHandle;
     typedef OpenMesh::FaceHandle              FaceHandle;
     typedef OpenMesh::EdgeHandle              EdgeHandle;
@@ -92,6 +93,7 @@ struct FinalMeshItemsT
   typedef typename Refs::TexCoord2D      TexCoord2D;
   typedef typename Refs::TexCoord3D      TexCoord3D;
   typedef typename Refs::TextureIndex    TextureIndex;
+  typedef typename Refs::TexFile         TexFile;
 
   //--- get attribute bits from Traits ---
   enum Attribs
@@ -99,7 +101,8 @@ struct FinalMeshItemsT
     VAttribs = Traits::VertexAttributes,
     HAttribs = Traits::HalfedgeAttributes,
     EAttribs = Traits::EdgeAttributes,
-    FAttribs = Traits::FaceAttributes
+    FAttribs = Traits::FaceAttributes,
+    MAttribs = Traits::MeshAttributes
   };
   //--- merge internal items with traits items ---
 
@@ -139,6 +142,7 @@ template<typename LhsTraits, typename RhsTraits> struct ItemsEquality {
     TypeEquality<typename LhsTraits::TexCoord2D, typename RhsTraits::TexCoord2D> te6;
     TypeEquality<typename LhsTraits::TexCoord3D, typename RhsTraits::TexCoord3D> te7;
     TypeEquality<typename LhsTraits::TextureIndex, typename RhsTraits::TextureIndex> te8;
+    TypeEquality<typename LhsTraits::TexFile, typename RhsTraits::TexFile> te9;
 };
 
 } /* namespace TM */

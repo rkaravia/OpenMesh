@@ -131,7 +131,9 @@ protected:
        &&  (_opt.check(Options::VertexTexCoord)<= _be.has_vertex_texcoords())
        &&  (_opt.check(Options::VertexColor)   <= _be.has_vertex_colors())
        &&  (_opt.check(Options::FaceNormal)    <= _be.has_face_normals())
-       &&  (_opt.check(Options::FaceColor)     <= _be.has_face_colors());
+       &&  (_opt.check(Options::FaceColor)     <= _be.has_face_colors())
+       &&  (_opt.check(Options::FaceTexCoord)  <= _be.has_face_texcoords())
+       &&  (_opt.check(Options::TexFile        <= _be.has_mesh_texfile()));
   }
 };
 

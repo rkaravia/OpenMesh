@@ -85,6 +85,9 @@ namespace OpenMesh {
 /// Macro for defining the face attributes. See \ref mesh_type.
 #define FaceAttributes(_i) enum { FaceAttributes = _i }
 
+/// Macro for defining the face attributes. See \ref mesh_type.
+#define MeshAttributes(_i) enum { MeshAttributes = _i }
+
 /// Macro for defining the vertex traits. See \ref mesh_type.
 #define VertexTraits \
   template <class Base, class Refs> struct VertexT : public Base
@@ -134,6 +137,9 @@ struct DefaultTraits
   /// The default texture index type
   typedef int TextureIndex;
 
+  /// The default texture file type
+  typedef std::string TexFile;
+
   /// The default color type is OpenMesh::Vec3uc.
   typedef Vec3uc Color;
 
@@ -148,6 +154,7 @@ struct DefaultTraits
   HalfedgeAttributes(Attributes::PrevHalfedge);
   EdgeAttributes(0);
   FaceAttributes(0);
+  MeshAttributes(0);
 };
 
 
@@ -179,6 +186,7 @@ template <class _Traits1, class _Traits2> struct MergeTraits
     HalfedgeAttributes ( T1::HalfedgeAttributes | T2::HalfedgeAttributes );
     EdgeAttributes     ( T1::EdgeAttributes     | T2::EdgeAttributes     );
     FaceAttributes     ( T1::FaceAttributes     | T2::FaceAttributes     );
+    MeshAttributes     ( T1::MeshAttributes     | T2::MeshAttributes     );
 
 
     typedef typename T1::Point    Point;

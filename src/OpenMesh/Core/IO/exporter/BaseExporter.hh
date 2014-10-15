@@ -121,6 +121,9 @@ public:
   virtual Vec3f colorf(EdgeHandle _eh)    const = 0;
   virtual Vec4f colorAf(EdgeHandle _eh)   const = 0;
 
+  // get mesh data
+  virtual std::string texfile()   const = 0;
+
   // get reference to base kernel
   virtual const BaseKernel* kernel() { return 0; }
 
@@ -139,6 +142,8 @@ public:
   virtual bool has_edge_colors()      const { return false; }
   virtual bool has_face_normals()     const { return false; }
   virtual bool has_face_colors()      const { return false; }
+  virtual bool has_face_texcoords()   const { return false; }
+  virtual bool has_mesh_texfile()     const { return false; }
 };
 
 
