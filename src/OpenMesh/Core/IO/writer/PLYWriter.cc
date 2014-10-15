@@ -508,6 +508,7 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
       // Face TexCoords
       if ( _opt.face_has_texcoord() ) {
           _be.texcoords(FaceHandle(i), texcoords);
+          writeValue(ValueTypeUINT8, _out, 6);
           for (j=0; j<3; ++j)
           {
             writeValue(ValueTypeFLOAT, _out, texcoords[j][0]);
