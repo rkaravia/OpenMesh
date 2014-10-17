@@ -252,7 +252,7 @@ _PLYWriter_::
 write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
 {
   
-  unsigned int i, nV, nF;
+  unsigned int i, j, nV, nF;
   Vec3f v, n;
   OpenMesh::Vec3ui c;
   OpenMesh::Vec4ui cA;
@@ -261,6 +261,7 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
   OpenMesh::Vec2f t;
   VertexHandle vh;
   std::vector<VertexHandle> vhandles;
+  std::vector<Vec2f> texcoords;
 
   write_header(_out, _be, _opt);
 
@@ -325,18 +326,27 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
       _out << vhandles[1].idx()  << " ";
       _out << vhandles[2].idx();
 
-       //face color
-       if ( _opt.face_has_color() ){
-         //with alpha
-         if ( _opt.color_has_alpha() ){
-           cA  = _be.colorA( FaceHandle(i) );
-           _out << " " << cA[0] << " " << cA[1] << " " << cA[2] << " " << cA[3];
-         }else{
-           //without alpha
-           c  = _be.color( FaceHandle(i) );
-           _out << " " << c[0] << " " << c[1] << " " << c[2];
-         }
-       }
+      // Face TexCoords
+      if ( _opt.face_has_texcoord() ) {
+        _be.texcoords(FaceHandle(i), texcoords);
+        for (j=0; j<3; ++j)
+        {
+          _out << " " << texcoords[j][0] << " " << texcoords[j][1];
+        }
+      }
+
+      //face color
+      if ( _opt.face_has_color() ){
+        //with alpha
+        if ( _opt.color_has_alpha() ){
+          cA  = _be.colorA( FaceHandle(i) );
+          _out << " " << cA[0] << " " << cA[1] << " " << cA[2] << " " << cA[3];
+        }else{
+          //without alpha
+          c  = _be.color( FaceHandle(i) );
+          _out << " " << c[0] << " " << c[1] << " " << c[2];
+        }
+      }
       _out << "\n";
     }
   }

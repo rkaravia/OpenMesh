@@ -189,6 +189,9 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
     float tmp;
     BaseImporter::VHandles vhandles;
     VertexHandle vh;
+    FaceHandle             fh;
+    ValueType              indexType, valueType;
+    std::vector<Vec2f>     face_texcoords;
 
     _bi.reserve(vertexCount_, 3* vertexCount_ , faceCount_);
 
@@ -291,27 +294,38 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
     // faces
     // #N <v1> <v2> .. <v(n-1)> [color spec]
     for (i = 0; i < faceCount_; ++i) {
-        // nV = number of Vertices for current face
-        _in >> nV;
+        for (uint propertyIndex = 0; propertyIndex < faceListPropertyCount_; ++propertyIndex) {
+            indexType = faceListPropertyMap_[propertyIndex].second.first;
+            valueType = faceListPropertyMap_[propertyIndex].second.second;
+            switch (faceListPropertyMap_[propertyIndex].first) {
+                case FP_INDICES:
+                    // nV = number of Vertices for current face
+                    _in >> nV;
 
-        if (nV == 3) {
-            vhandles.resize(3);
-            _in >> j;
-            _in >> k;
-            _in >> l;
-
-            vhandles[0] = VertexHandle(j);
-            vhandles[1] = VertexHandle(k);
-            vhandles[2] = VertexHandle(l);
-        } else {
-            vhandles.clear();
-            for (j = 0; j < nV; ++j) {
-                _in >> idx;
-                vhandles.push_back(VertexHandle(idx));
+                    vhandles.clear();
+                    for (j = 0; j < nV; ++j) {
+                        _in >> idx;
+                        vhandles.push_back(VertexHandle(idx));
+                    }
+                    break;
+                case FP_TEXCOORD:
+                    face_texcoords.clear();
+                    for (j = 0; j < nV; ++j) {
+                        _in >> t[0];
+                        _in >> t[1];
+                        face_texcoords.push_back(t);
+                    }
+                    break;
+                default:
+                    omerr() << "Unsupported property" << std::endl;
+                    return false;
+                    break;
             }
         }
 
-        FaceHandle fh = _bi.add_face(vhandles);
+        fh = _bi.add_face(vhandles);
+        if (_opt.face_has_texcoord())
+            _bi.add_face_texcoords(fh, vhandles[0], face_texcoords);
 
     }
 
@@ -330,8 +344,7 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
     }
 
     unsigned int i, j, k, l, idx;
-    unsigned int nV;
-    unsigned int nTC;
+    unsigned int nV, nTC;
     OpenMesh::Vec3f        v, n;  // Vertex
     OpenMesh::Vec2f        t;  // TexCoords
     BaseImporter::VHandles vhandles;
@@ -450,35 +463,19 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
                 case FP_INDICES:
                     // Read number of vertices for the current face
                     readValue(indexType, _in, nV);
-                    if (nV == 3) {
-                        vhandles.resize(3);
-                        readInteger(valueType, _in, j);
-                        readInteger(valueType, _in, k);
-                        readInteger(valueType, _in, l);
-
-                        vhandles[0] = VertexHandle(j);
-                        vhandles[1] = VertexHandle(k);
-                        vhandles[2] = VertexHandle(l);
-                    } else {
-                        vhandles.clear();
-                        for (j = 0; j < nV; ++j) {
-                            readInteger(valueType, _in, idx);
-                            vhandles.push_back(VertexHandle(idx));
-                        }
+                    vhandles.clear();
+                    for (j = 0; j < nV; ++j) {
+                        readInteger(valueType, _in, idx);
+                        vhandles.push_back(VertexHandle(idx));
                     }
                     break;
                 case FP_TEXCOORD:
                     readValue(indexType, _in, nTC);
-                    if (nTC == 6) {
-                        face_texcoords.resize(3);
-                        for (int j = 0; j < 3; ++j) {
-                            readValue(valueType, _in, t[0]);
-                            readValue(valueType, _in, t[1]);
-                            face_texcoords[j] = t;
-                        }
-                    } else {
-                        omerr() << "Expected 6 texture coordinates for face." << std::endl;
-                        return false;
+                    face_texcoords.clear();
+                    for (j = 0; j < nTC / 2; ++j) {
+                        readValue(valueType, _in, t[0]);
+                        readValue(valueType, _in, t[1]);
+                        face_texcoords.push_back(t);
                     }
                     break;
                 default:
