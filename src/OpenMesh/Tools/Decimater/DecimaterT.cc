@@ -139,7 +139,7 @@ void DecimaterT<Mesh>::heap_vertex(VertexHandle _vh) {
 
 //-----------------------------------------------------------------------------
 template<class Mesh>
-size_t DecimaterT<Mesh>::decimate(size_t _n_collapses) {
+size_t DecimaterT<Mesh>::decimate(size_t _n_collapses, Observer* observer) {
 
   if (!this->is_initialized())
     return 0;
@@ -215,6 +215,13 @@ size_t DecimaterT<Mesh>::decimate(size_t _n_collapses) {
       assert(!mesh_.status(*s_it).deleted());
       heap_vertex(*s_it);
     }
+
+    // notify observer and stop if the observer requests it
+    if (observer && n_collapses % observer->step() == 0) {
+      if (!observer->notify(n_collapses)) {
+        return n_collapses;
+      }
+    }
   }
 
   // delete heap
@@ -229,7 +236,7 @@ size_t DecimaterT<Mesh>::decimate(size_t _n_collapses) {
 //-----------------------------------------------------------------------------
 
 template<class Mesh>
-size_t DecimaterT<Mesh>::decimate_to_faces(size_t _nv, size_t _nf) {
+size_t DecimaterT<Mesh>::decimate_to_faces(size_t _nv, size_t _nf, Observer* observer) {
 
   if (!this->is_initialized())
     return 0;
@@ -315,6 +322,13 @@ size_t DecimaterT<Mesh>::decimate_to_faces(size_t _nv, size_t _nf) {
     for (s_it = support.begin(), s_end = support.end(); s_it != s_end; ++s_it) {
       assert(!mesh_.status(*s_it).deleted());
       heap_vertex(*s_it);
+    }
+
+    // notify observer and stop if the observer requests it
+    if (observer && n_collapses % observer->step() == 0) {
+      if (!observer->notify(n_collapses)) {
+        return n_collapses;
+      }
     }
   }
 

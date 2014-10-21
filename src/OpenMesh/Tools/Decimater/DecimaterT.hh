@@ -86,6 +86,25 @@ public: //-------------------------------------------------------- public types
   typedef std::vector< Module* >        ModuleList;
   typedef typename ModuleList::iterator ModuleListIterator;
 
+  class Observer
+  {
+  public:
+    Observer(size_t _step) :
+      step_(_step) {
+    }
+
+    virtual ~Observer() {
+    }
+
+    size_t step() const                 { return step_; }
+    void set_step(size_t _step)         { step_ = _step; }
+
+    virtual bool notify( size_t _step ) = 0;
+
+  private:
+    size_t step_;
+  };
+
 public: //------------------------------------------------------ public methods
 
   /// Constructor
@@ -99,20 +118,20 @@ public:
   /** Decimate (perform _n_collapses collapses). Return number of
       performed collapses. If _n_collapses is not given reduce as
       much as possible */
-  size_t decimate( size_t _n_collapses = 0 );
+  size_t decimate( size_t _n_collapses = 0, Observer* observer = NULL );
 
   /// Decimate to target complexity, returns number of collapses
-  size_t decimate_to( size_t  _n_vertices )
+  size_t decimate_to( size_t  _n_vertices, Observer* observer = NULL )
   {
     return ( (_n_vertices < this->mesh().n_vertices()) ?
-	     decimate( this->mesh().n_vertices() - _n_vertices ) : 0 );
+	     decimate( this->mesh().n_vertices() - _n_vertices, observer ) : 0 );
   }
 
   /** Decimate to target complexity (vertices and faces).
    *  Stops when the number of vertices or the number of faces is reached.
    *  Returns number of performed collapses.
    */
-  size_t decimate_to_faces( size_t  _n_vertices=0, size_t _n_faces=0 );
+  size_t decimate_to_faces( size_t  _n_vertices=0, size_t _n_faces=0, Observer* observer = NULL );
 
 public:
 
