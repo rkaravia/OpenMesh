@@ -174,6 +174,9 @@ private:
   /// Stores sizes of property types
   mutable std::map<ValueType, int> scalar_size_;
 
+  // Header comments
+  mutable std::map< std::string , std::string > commentsMap_;
+
   // Number of vertex properties
   mutable unsigned int vertexPropertyCount_;
   mutable std::map< int , std::pair< VertexProperty, ValueType> > vertexPropertyMap_;

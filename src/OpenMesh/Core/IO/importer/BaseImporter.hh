@@ -147,6 +147,9 @@ public:
   // set face color
   virtual void set_color(FaceHandle _fh, const Vec4f& _color) = 0;
 
+  // set texfile
+  virtual void set_texfile(const std::string& _texfile) = 0;
+
   // Store a property in the mesh mapping from an int to a texture file
   // Use set_face_texindex to set the index for each face
   virtual void add_texture_information( int _id , std::string _name ) = 0;

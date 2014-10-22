@@ -282,6 +282,14 @@ public:
     }
   }
 
+  // global attributes
+
+  virtual void set_texfile(const std::string& _texfile)
+  {
+    if (mesh_.has_mesh_texfile())
+      mesh_.set_texfile(_texfile);
+  }
+
   virtual void add_texture_information( int _id , std::string _name ) {
     OpenMesh::MPropHandleT< std::map< int, std::string > > property;
 

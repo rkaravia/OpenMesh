@@ -153,6 +153,9 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     if (options_.face_has_texcoord() && userOptions_.face_has_texcoord()) {
         _opt += Options::FaceTexCoord;
     }
+    if (options_.mesh_has_texfile() && userOptions_.mesh_has_texfile()) {
+        _bi.set_texfile(commentsMap_["TextureFile"]);
+    }
     if (options_.is_binary()) {
         _opt += Options::Binary;
     }
@@ -872,6 +875,9 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
     // Clear per file options
     options_.cleanup();
 
+    // clear header comments map, will be recreated
+    commentsMap_.clear();
+
     // clear vertex property map, will be recreated
     vertexPropertyMap_.clear();
     vertexPropertyCount_ = 0;
@@ -895,8 +901,10 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
 
     std::string keyword;
     std::string fileType;
-    std::string elementName = "";
+    std::string elementName;
     std::string propertyName;
+    std::string commentKey;
+    std::string commentValue;
     std::string listIndexType;
     std::string listEntryType;
     float version;
@@ -935,6 +943,13 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
 
         if (keyword == "comment") {
             std::getline(_is, line);
+            std::stringstream lineStream(line);
+            if ((lineStream >> commentKey) && (lineStream >> commentValue)) {
+              commentsMap_[commentKey] = commentValue;
+              if (commentKey == "TextureFile") {
+                options_ += Options::TexFile;
+              }
+            }
         } else if (keyword == "element") {
             _is >> elementName;
             if (elementName == "vertex") {
