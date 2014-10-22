@@ -356,6 +356,70 @@ TEST_F(OpenMeshReadWritePLY, WriteAndReadBinaryPLYWithFloatVertexColors) {
 }
 
 /*
+ * Read and write a binary ply file of a cube with face texcoords and texture filename
+ */
+TEST_F(OpenMeshReadWritePLY, WriteAndReadBinaryPLYWithFaceTexcoords) {
+
+    mesh_.clear();
+
+    mesh_.request_halfedge_texcoords2D();
+    mesh_.request_mesh_texfile();
+
+    bool ok = OpenMesh::IO::read_mesh(mesh_, "meshlab.ply");
+
+    EXPECT_TRUE(ok) << "Unable to load meshlab.ply";
+
+    mesh_.set_texcoord2D(mesh_.halfedge_handle(0), Mesh::TexCoord2D(1, 1));
+    mesh_.set_texcoord2D(mesh_.halfedge_handle(10), Mesh::TexCoord2D(3, 3));
+    mesh_.set_texcoord2D(mesh_.halfedge_handle(19), Mesh::TexCoord2D(6, 6));
+    mesh_.set_texcoord2D(mesh_.halfedge_handle(24), Mesh::TexCoord2D(7, 7));
+    mesh_.set_texcoord2D(mesh_.halfedge_handle(30), Mesh::TexCoord2D(9, 9));
+    mesh_.set_texcoord2D(mesh_.halfedge_handle(35), Mesh::TexCoord2D(12, 12));
+
+    mesh_.set_texfile("texture.png");
+
+    OpenMesh::IO::Options options;
+
+    options += OpenMesh::IO::Options::FaceTexCoord;
+    options += OpenMesh::IO::Options::TexFile;
+    options += OpenMesh::IO::Options::Binary;
+
+    ok = OpenMesh::IO::write_mesh(mesh_, "meshlab_binary_face_texcoords.ply", options);
+    EXPECT_TRUE(ok) << "Unable to write meshlab_binary_face_texcoords.ply";
+
+    mesh_.clear();
+    ok = OpenMesh::IO::read_mesh(mesh_, "meshlab_binary_face_texcoords.ply", options);
+    EXPECT_TRUE(ok) << "Unable to load meshlab_binary_face_texcoords.ply";
+
+    EXPECT_EQ(8u  , mesh_.n_vertices()) << "The number of loaded vertices is not correct!";
+    EXPECT_EQ(18u , mesh_.n_edges())    << "The number of loaded edges is not correct!";
+    EXPECT_EQ(12u , mesh_.n_faces())    << "The number of loaded faces is not correct!";
+
+    EXPECT_EQ(1, mesh_.texcoord2D(mesh_.halfedge_handle(0))[0] ) << "Wrong texCoord at halfedge 0 component 0";
+    EXPECT_EQ(1, mesh_.texcoord2D(mesh_.halfedge_handle(0))[1] ) << "Wrong texCoord at halfedge 0 component 1";
+
+    EXPECT_EQ(3, mesh_.texcoord2D(mesh_.halfedge_handle(10))[0] ) << "Wrong texCoord at halfedge 1 component 0";
+    EXPECT_EQ(3, mesh_.texcoord2D(mesh_.halfedge_handle(10))[1] ) << "Wrong texCoord at halfedge 1 component 1";
+
+    EXPECT_EQ(6, mesh_.texcoord2D(mesh_.halfedge_handle(19))[0] ) << "Wrong texCoord at halfedge 4 component 0";
+    EXPECT_EQ(6, mesh_.texcoord2D(mesh_.halfedge_handle(19))[1] ) << "Wrong texCoord at halfedge 4 component 1";
+
+    EXPECT_EQ(7, mesh_.texcoord2D(mesh_.halfedge_handle(24))[0] ) << "Wrong texCoord at halfedge 7 component 0";
+    EXPECT_EQ(7, mesh_.texcoord2D(mesh_.halfedge_handle(24))[1] ) << "Wrong texCoord at halfedge 7 component 1";
+
+    EXPECT_EQ(9, mesh_.texcoord2D(mesh_.halfedge_handle(30))[0] ) << "Wrong texCoord at halfedge 9 component 0";
+    EXPECT_EQ(9, mesh_.texcoord2D(mesh_.halfedge_handle(30))[1] ) << "Wrong texCoord at halfedge 9 component 1";
+
+    EXPECT_EQ(12, mesh_.texcoord2D(mesh_.halfedge_handle(35))[0] ) << "Wrong texCoord at halfedge 11 component 0";
+    EXPECT_EQ(12, mesh_.texcoord2D(mesh_.halfedge_handle(35))[1] ) << "Wrong texCoord at halfedge 11 component 1";
+
+    EXPECT_EQ("texture.png", mesh_.texfile()) << "Wrong texture filename";
+
+    mesh_.release_halfedge_texcoords2D();
+    mesh_.release_mesh_texfile();
+}
+
+/*
  * Just load a ply file of a cube with vertex texCoords
  */
 TEST_F(OpenMeshReadWritePLY, LoadSimplePLYWithTexCoords) {
