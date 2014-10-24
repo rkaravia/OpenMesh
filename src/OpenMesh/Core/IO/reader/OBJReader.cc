@@ -335,12 +335,21 @@ read(std::istream& _in, BaseImporter& _bi, Options& _opt)
 
       //omlog() << "  " << materials_.size() << " materials loaded.\n";
 
+      if ( !materials_.empty() ) {
+        Material& material = materials_.begin()->second;
+        if ( material.has_map_Kd() ) {
+          _bi.set_texfile(material.map_Kd());
+        }
+      }
+
+      /*
       for ( MaterialList::iterator material = materials_.begin(); material != materials_.end(); ++material )
       {
         // Save the texture information in a property
         if ( (*material).second.has_map_Kd() )
           _bi.add_texture_information( (*material).second.map_Kd_index() , (*material).second.map_Kd() );
       }
+      */
 
     }
 

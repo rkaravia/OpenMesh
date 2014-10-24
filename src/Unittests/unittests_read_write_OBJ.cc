@@ -219,7 +219,8 @@ TEST_F(OpenMeshReadWriteOBJ, LoadObjWithTexture) {
     mesh_.clear();
 
     mesh_.request_face_colors();
-    mesh_.request_face_texture_index();
+    mesh_.request_halfedge_texcoords2D();
+    mesh_.request_mesh_texfile();
 
     OpenMesh::IO::Options options;
     options += OpenMesh::IO::Options::FaceTexCoord;
@@ -231,20 +232,11 @@ TEST_F(OpenMeshReadWriteOBJ, LoadObjWithTexture) {
     EXPECT_TRUE(ok) << file_name;
 
     //check texture mapping for the mesh
-    OpenMesh::MPropHandleT< std::map< int, std::string > > property;
-    mesh_.get_property_handle(property, "TextureMapping");
-    EXPECT_EQ(mesh_.property(property).size(), 1u) << "More than one texture defined";
-    std::map< int, std::string >::iterator tex = mesh_.property(property).find(1);
-    EXPECT_TRUE(tex != mesh_.property(property).end()) << "Could not find texture with id 1";
-    EXPECT_TRUE((mesh_.property(property)[1] == std::string("square_material_texture.jpg"))) << "Wrong texture name";
-
-    //check texture mapping per face
-    OpenMesh::FaceHandle fh = mesh_.face_handle(mesh_.halfedge_handle(0));
-    EXPECT_TRUE(fh.is_valid()) << "fh should be valid";
-    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(),fh),1) << "Face texture index is not set correctly";
+    EXPECT_EQ("square_material_texture.jpg", mesh_.texfile()) << "Wrong texture name";
 
     mesh_.release_face_colors();
-    mesh_.release_face_texture_index();
+    mesh_.release_halfedge_texcoords2D();
+    mesh_.release_mesh_texfile();
 }
 
 /*
