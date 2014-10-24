@@ -150,7 +150,7 @@ size_t _OBJWriter_::getMaterial(OpenMesh::Vec4f _color) const
 
 //-----------------------------------------------------------------------------
 
-bool
+void
 _OBJWriter_::
 writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
 {
@@ -160,38 +160,45 @@ writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
   material_.clear();
   materialA_.clear();
 
-  //iterate over faces
-  for (size_t i=0, nF=_be.n_faces(); i<nF; ++i)
-  {
-    //color with alpha
-    if ( _opt.color_has_alpha() ){
-      cA  = color_cast<OpenMesh::Vec4f> (_be.colorA( FaceHandle(int(i)) ));
-      getMaterial(cA);
-    }else{
-    //and without alpha
-      c  = color_cast<OpenMesh::Vec3f> (_be.color( FaceHandle(int(i)) ));
-      getMaterial(c);
+  if ( _opt.face_has_color() ) {
+    //iterate over faces
+    for (size_t i=0, nF=_be.n_faces(); i<nF; ++i)
+    {
+      //color with alpha
+      if ( _opt.color_has_alpha() ){
+        cA  = color_cast<OpenMesh::Vec4f> (_be.colorA( FaceHandle(int(i)) ));
+        getMaterial(cA);
+      }else{
+      //and without alpha
+        c  = color_cast<OpenMesh::Vec3f> (_be.color( FaceHandle(int(i)) ));
+        getMaterial(c);
+      }
+    }
+
+    //write the materials
+    if ( _opt.color_has_alpha() ) {
+      for (size_t i=0; i < materialA_.size(); i++){
+        _out << "newmtl " << "mat" << i << std::endl;
+        _out << "Ka 0.5000 0.5000 0.5000" << std::endl;
+        _out << "Kd " << materialA_[i][0] << materialA_[i][1] << materialA_[i][2] << std::endl;;
+        _out << "Tr " << materialA_[i][3] << std::endl;
+        _out << "illum 1" << std::endl;
+      }
+    } else {
+      for (size_t i=0; i < material_.size(); i++){
+        _out << "newmtl " << "mat" << i << std::endl;
+        _out << "Ka 0.5000 0.5000 0.5000" << std::endl;
+        _out << "Kd " << material_[i][0] << material_[i][1] << material_[i][2] << std::endl;;
+        _out << "illum 1" << std::endl;
+      }
     }
   }
 
-  //write the materials
-  if ( _opt.color_has_alpha() )
-    for (size_t i=0; i < materialA_.size(); i++){
-      _out << "newmtl " << "mat" << i << std::endl;
-      _out << "Ka 0.5000 0.5000 0.5000" << std::endl;
-      _out << "Kd " << materialA_[i][0] << materialA_[i][1] << materialA_[i][2] << std::endl;;
-      _out << "Tr " << materialA_[i][3] << std::endl;
-      _out << "illum 1" << std::endl;
-    }
-  else
-    for (size_t i=0; i < material_.size(); i++){
-      _out << "newmtl " << "mat" << i << std::endl;
-      _out << "Ka 0.5000 0.5000 0.5000" << std::endl;
-      _out << "Kd " << material_[i][0] << material_[i][1] << material_[i][2] << std::endl;;
-      _out << "illum 1" << std::endl;
-    }
-
-  return true;
+  if ( _opt.mesh_has_texfile() ) {
+    _out << "newmtl " << "texture" << std::endl;
+    _out << "illum 0" << std::endl;
+    _out << "map_Kd " << _be.texfile() << std::endl;
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -205,9 +212,10 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   size_t i, j,nV, nF;
   Vec3f v, n;
   Vec2f t;
+  std::vector<Vec2f> texcoords;
   VertexHandle vh;
   std::vector<VertexHandle> vhandles;
-  bool useMatrial = false;
+  bool useMaterial = false;
   OpenMesh::Vec3f c;
   OpenMesh::Vec4f cA;
 
@@ -228,7 +236,8 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
 
   //create material file if needed
-  if ( _opt.check(Options::FaceColor) ){
+  if ( _opt.face_has_color() || _opt.mesh_has_texfile() ) {
+    useMaterial = true;
 
     std::string matFile = path_ + objName_ + ".mat";
 
@@ -237,10 +246,9 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
     if (!matStream)
     {
       omerr() << "[OBJWriter] : cannot write material file " << matFile << std::endl;
-
-    }else{
-      useMatrial = writeMaterial(matStream, _be, _opt);
-
+      return false;
+    } else {
+      writeMaterial(matStream, _be, _opt);
       matStream.close();
     }
   }
@@ -250,7 +258,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out << _be.n_faces() << " faces" << std::endl;
 
   // material file
-  if (useMatrial &&  _opt.check(Options::FaceColor) )
+  if ( useMaterial )
     _out << "mtllib " << objName_ << ".mat" << std::endl;
 
   // vertex data (point, normals, texcoords)
@@ -272,15 +280,20 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
   size_t lastMat = std::numeric_limits<std::size_t>::max();
 
+  if ( _opt.face_has_texcoord() ) {
+    _out << "usemtl texture" << std::endl;
+  }
+
   // we do not want to write seperators if we only write vertex indices
-  bool onlyVertices =    !_opt.check(Options::VertexTexCoord)
-                      && !_opt.check(Options::VertexNormal);
+  bool onlyVertices =    !_opt.vertex_has_texcoord()
+                      && !_opt.face_has_texcoord()
+                      && !_opt.vertex_has_normal();
 
   // faces (indices starting at 1 not 0)
   for (i=0, nF=_be.n_faces(); i<nF; ++i)
   {
 
-    if (useMatrial &&  _opt.check(Options::FaceColor) ){
+    if ( _opt.face_has_color() ){
       size_t material = std::numeric_limits<std::size_t>::max();
 
       //color with alpha
@@ -300,6 +313,14 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
       }
     }
 
+    if ( _opt.face_has_texcoord() ) {
+      _be.texcoords(FaceHandle(int(i)), texcoords);
+      for (j=0; j<3; ++j)
+      {
+        _out << "vt " << texcoords[j][0] << " " << texcoords[j][1] << std::endl;
+      }
+    }
+
     _out << "f";
 
     _be.get_vhandles(FaceHandle(int(i)), vhandles);
@@ -316,11 +337,15 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
         _out << "/" ;
 
         // write vertex texture coordinate index
-        if (_opt.check(Options::VertexTexCoord))
+        if ( _opt.vertex_has_texcoord() )
           _out  << idx;
 
+        // write halfedge texture coordinate index
+        if ( _opt.face_has_texcoord() )
+          _out  << (i * 3 + j + 1);
+
         // write vertex normal index
-        if ( _opt.check(Options::VertexNormal) ) {
+        if ( _opt.vertex_has_normal() ) {
           // write separator
           _out << "/" ;
           _out << idx;

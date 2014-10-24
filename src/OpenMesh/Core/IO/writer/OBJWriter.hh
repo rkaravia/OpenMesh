@@ -107,7 +107,7 @@ private:
 
   size_t getMaterial(OpenMesh::Vec4f _color) const;
 
-  bool writeMaterial(std::ostream& _out, BaseExporter&, Options) const;
+  void writeMaterial(std::ostream& _out, BaseExporter&, Options) const;
 
 
 };
