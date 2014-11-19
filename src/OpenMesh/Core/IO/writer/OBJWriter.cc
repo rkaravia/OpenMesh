@@ -218,6 +218,8 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   bool useMaterial = false;
   OpenMesh::Vec3f c;
   OpenMesh::Vec4f cA;
+  // Using \n instead of std::endl is a lot faster because it does not flush
+  char endl = '\n';
 
   omlog() << "[OBJWriter] : write file\n";
 
@@ -255,11 +257,11 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
   // header
   _out << "# " << _be.n_vertices() << " vertices, ";
-  _out << _be.n_faces() << " faces" << std::endl;
+  _out << _be.n_faces() << " faces" << endl;
 
   // material file
   if ( useMaterial )
-    _out << "mtllib " << objName_ << ".mat" << std::endl;
+    _out << "mtllib " << objName_ << ".mat" << endl;
 
   // vertex data (point, normals, texcoords)
   for (i=0, nV=_be.n_vertices(); i<nV; ++i)
@@ -269,19 +271,19 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
     n  = _be.normal(vh);
     t  = _be.texcoord(vh);
 
-    _out << "v " << v[0] <<" "<< v[1] <<" "<< v[2] << std::endl;
+    _out << "v " << v[0] <<" "<< v[1] <<" "<< v[2] << endl;
 
     if (_opt.check(Options::VertexNormal))
-      _out << "vn " << n[0] <<" "<< n[1] <<" "<< n[2] << std::endl;
+      _out << "vn " << n[0] <<" "<< n[1] <<" "<< n[2] << endl;
 
     if (_opt.check(Options::VertexTexCoord))
-      _out << "vt " << t[0] <<" "<< t[1] << std::endl;
+      _out << "vt " << t[0] <<" "<< t[1] << endl;
   }
 
   size_t lastMat = std::numeric_limits<std::size_t>::max();
 
   if ( _opt.face_has_texcoord() ) {
-    _out << "usemtl texture" << std::endl;
+    _out << "usemtl texture" << endl;
   }
 
   // we do not want to write seperators if we only write vertex indices
@@ -308,7 +310,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
       // if we are ina a new material block, specify in the file which material to use
       if(lastMat != material) {
-        _out << "usemtl mat" << material << std::endl;
+        _out << "usemtl mat" << material << endl;
         lastMat = material;
       }
     }
@@ -317,7 +319,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
       _be.texcoords(FaceHandle(int(i)), texcoords);
       for (j=0; j<3; ++j)
       {
-        _out << "vt " << texcoords[j][0] << " " << texcoords[j][1] << std::endl;
+        _out << "vt " << texcoords[j][0] << " " << texcoords[j][1] << endl;
       }
     }
 
@@ -353,7 +355,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
       }
     }
 
-    _out << std::endl;
+    _out << endl;
   }
 
   material_.clear();
