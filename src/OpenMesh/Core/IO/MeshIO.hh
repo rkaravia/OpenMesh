@@ -154,18 +154,18 @@ read_mesh(Mesh&         _mesh,
 
     @return Successful?
 */
-template <class Mesh>
-bool
-read_mesh(Mesh&         _mesh,
-	  std::istream&       _is,
-	  const std::string&  _ext,
-	  Options&            _opt,
-	  bool                _clear = true)
-{
-  if (_clear) _mesh.clear();
-  ImporterT<Mesh> importer(_mesh);
-  return IOManager().read(_is,_ext, importer, _opt);
-}
+//template <class Mesh>
+//bool
+//read_mesh(Mesh&         _mesh,
+//	  std::istream&       _is,
+//	  const std::string&  _ext,
+//	  Options&            _opt,
+//	  bool                _clear = true)
+//{
+//  if (_clear) _mesh.clear();
+//  ImporterT<Mesh> importer(_mesh);
+//  return IOManager().read(_is,_ext, importer, _opt);
+//}
 
 
 
@@ -220,16 +220,49 @@ bool write_mesh(const Mesh&        _mesh,
 
     @return Successful?
 */
-template <class Mesh>
-bool write_mesh(const Mesh&        _mesh,
-		std::ostream&      _os,
-	        const std::string& _ext,
-                Options            _opt = Options::Default,
-                std::streamsize    _precision = 6)
-{
-  ExporterT<Mesh> exporter(_mesh);
-  return IOManager().write(_os,_ext, exporter, _opt, _precision);
-}
+//template <class Mesh>
+//bool write_mesh(const Mesh&        _mesh,
+//                std::ostream&      _os,
+//                const std::string& _ext,
+//                Options            _opt = Options::Default,
+//                std::streamsize    _precision = 6)
+//{
+//  ExporterT<Mesh> exporter(_mesh);
+//  return IOManager().write(_os,_ext, exporter, _opt, _precision);
+//}
+
+
+//-----------------------------------------------------------------------------
+
+
+/** Write a mesh to an open std::ostream.
+
+    The file format is determined by parameter _ext. _ext has to include
+    ".[format]" in order to work properly (e.g. ".OFF")
+
+    \note If you link statically against OpenMesh, you have to add
+          the define OM_STATIC_BUILD to your application. This will
+          ensure that readers and writers get initialized correctly.
+
+    @param _mesh     The mesh that will be written to file
+    @param _os       output stream to write into
+    @param _ext      extension defining the type of output
+    @param _opt      Writer options (e.g. writing of normals ... depends
+                     on the writer capabilities)
+    @param _precision specifies stream precision for ascii files
+
+    @return Successful?
+*/
+//template <class Mesh>
+//bool write_mesh(const Mesh&        _mesh,
+//                std::ostream&      _os,
+//                const std::string& _ext,
+//                Options            _opt = Options::Default,
+//                std::streamsize    _precision = 6)
+//{
+//  ExporterT<Mesh> exporter(_mesh);
+//  return IOManager().write(_os,_ext, exporter, _opt, _precision);
+//}
 
 
 //-----------------------------------------------------------------------------

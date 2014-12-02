@@ -103,9 +103,27 @@ public:
    * @param _precision can be used to specify the precision of the floating point notation.
    */
   virtual bool write(const std::string& _filename,
-		     BaseExporter& _be,
+                     BaseExporter& _be,
                      Options _opt,
                      std::streamsize _precision = 6) const = 0;
+
+  /** Write to files that are opened using an external handler
+   * @param _os write to std::ostream
+   * @param _be BaseExporter, which specifies the data source
+   * @param _opt writing options
+   * @param _precision can be used to specify the precision of the floating point notation.
+   */
+//  virtual bool write(std::ostream& _os,
+//                     BaseExporter& _be,
+//                     Options _opt,
+//                     std::streamsize _precision = 6) const = 0;
+
+  /// Returns expected size of file if binary format is supported else 0.
+  virtual size_t binary_size(BaseExporter&, Options) const { return 0; }
+
+
+
+protected:
 
   /** Write to a std::ostream
    * @param _os write to std::ostream
@@ -114,16 +132,9 @@ public:
    * @param _precision can be used to specify the precision of the floating point notation.
    */
   virtual bool write(std::ostream& _os,
-		     BaseExporter& _be,
+                     BaseExporter& _be,
                      Options _opt,
                      std::streamsize _precision = 6) const = 0;
-
-  /// Returns expected size of file if binary format is supported else 0.
-  virtual size_t binary_size(BaseExporter&, Options) const { return 0; }
-
-
-
-protected:
 
   bool check(BaseExporter& _be, Options _opt) const
   {

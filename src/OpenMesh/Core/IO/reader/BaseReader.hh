@@ -88,7 +88,7 @@ class OPENMESHDLLEXPORT BaseReader
 public:
 
   /// Destructor
-  virtual ~BaseReader() {};
+  virtual ~BaseReader() {}
 
   /// Returns a brief description of the file type that can be parsed.
   virtual std::string get_description() const = 0;
@@ -113,22 +113,22 @@ public:
 		    BaseImporter& _bi,
                     Options& _opt) = 0;
 		
- /** Reads a mesh given by a std::stream. This method usually uses the same stream reading method
-    that read uses. Options can be passed via _opt. After execution _opt contains the Options
-      that were available.
-
-      Please make sure that if _is is std::ifstream, the correct std::ios_base::openmode flags are set. 
-  */
-  virtual bool read(std::istream& _is, 
-		    BaseImporter& _bi,
-                    Options& _opt) = 0;
-
 
   /// Returns true if reader can parse _filename (checks extension)
   virtual bool can_u_read(const std::string& _filename) const;
 
 
 protected:
+
+  /** Reads a mesh given by a std::stream. This method usually uses the same stream reading method
+      that read uses. Options can be passed via _opt. After execution _opt contains the Options
+      that were available.
+
+      Please make sure that if _is is std::ifstream, the correct std::ios_base::openmode flags are set.
+  */
+  virtual bool read(std::istream& _is,
+                    BaseImporter& _bi,
+                    Options& _opt) = 0;
 
   // case insensitive search for _ext in _fname.
   bool check_extension(const std::string& _fname, 

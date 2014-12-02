@@ -130,10 +130,10 @@ public:
      of its reader modules. True is returned upon success, false if all
      reader modules failed to use _is.
   */
-  bool read(std::istream& _filename,
-	    const std::string& _ext,
-	    BaseImporter& _bi,
-	    Options& _opt);
+//  bool read(std::istream& _filename,
+//	    const std::string& _ext,
+//	    BaseImporter& _bi,
+//	    Options& _opt);
 
 
   /** Write a mesh to file _filename. The source data structure is specified
@@ -153,11 +153,11 @@ public:
       writer modules failed to write the requested format.
       Options is determined by _filename's extension.
   */
-  bool write(std::ostream& _filename,
-	     const std::string& _ext,
-	     BaseExporter& _be,
-	     Options _opt=Options::Default,
-             std::streamsize _precision = 6);
+//  bool write(std::ostream& _filename,
+//	     const std::string& _ext,
+//	     BaseExporter& _be,
+//	     Options _opt=Options::Default,
+//             std::streamsize _precision = 6);
 
 
   /// Returns true if the format is supported by one of the reader modules.

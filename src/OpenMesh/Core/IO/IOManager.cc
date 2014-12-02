@@ -104,6 +104,7 @@ read(const std::string& _filename, BaseImporter& _bi, Options& _opt)
 //-----------------------------------------------------------------------------
 
 
+/*
 bool
 _IOManager_::
 read(std::istream& _is, const std::string& _ext, BaseImporter& _bi, Options& _opt)
@@ -124,6 +125,7 @@ read(std::istream& _is, const std::string& _ext, BaseImporter& _bi, Options& _op
   // All modules failed to read
   return false;
 }
+*/
 
 
 //-----------------------------------------------------------------------------
@@ -157,7 +159,7 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 
 //-----------------------------------------------------------------------------
 
-
+/*
 bool
 _IOManager_::
 write(std::ostream& _os,const std::string &_ext, BaseExporter& _be, Options _opt, std::streamsize _precision)
@@ -183,6 +185,7 @@ write(std::ostream& _os,const std::string &_ext, BaseExporter& _be, Options _opt
   // All modules failed to save
   return false;
 }
+*/
 
 //-----------------------------------------------------------------------------
 
