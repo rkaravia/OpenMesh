@@ -47,8 +47,13 @@
 #include <OpenMesh/Core/IO/writer/BaseWriter.hh>
 #include <algorithm>
 #include <string>
-#include <locale>
 #include <iterator>
+
+#ifdef _WIN32
+  #include <codecvt>
+  #include <locale>
+#endif
+
 #if defined(OM_CC_MIPS)
 #  include <ctype.h>
 #else
