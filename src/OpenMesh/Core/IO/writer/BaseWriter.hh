@@ -55,7 +55,7 @@
 
 
 // STD C++
-#include <iostream>
+#include <fstream>
 #include <string>
 
 // OpenMesh
@@ -146,6 +146,8 @@ protected:
        &&  (_opt.check(Options::FaceTexCoord)  <= _be.has_face_texcoords())
        &&  (_opt.check(Options::TexFile)       <= _be.has_mesh_texfile());
   }
+
+  bool openWrite(const std::string& _filename, Options _opt, std::ofstream& _os) const;
 };
 
 
