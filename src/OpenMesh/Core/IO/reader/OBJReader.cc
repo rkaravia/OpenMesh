@@ -110,7 +110,8 @@ bool
 _OBJReader_::
 read(const std::string& _filename, BaseImporter& _bi, Options& _opt)
 {
-  std::fstream in( _filename.c_str(), std::ios_base::in );
+  std::ifstream in;
+  openRead(_filename, _opt, in);
 
   if (!in.is_open() || !in.good())
   {
@@ -141,7 +142,7 @@ read(const std::string& _filename, BaseImporter& _bi, Options& _opt)
 
 bool
 _OBJReader_::
-read_material(std::fstream& _in)
+read_material(std::istream& _in)
 {
   std::string line;
   std::string keyWrd;
@@ -322,7 +323,8 @@ read(std::istream& _in, BaseImporter& _bi, Options& _opt)
 
       //omlog() << "Load material file " << matFile << std::endl;
 
-      std::fstream matStream( matFile.c_str(), std::ios_base::in );
+      std::ifstream matStream;
+      openRead(matFile, _opt, matStream);
 
       if ( matStream ){
 

@@ -107,7 +107,8 @@ _PLYReader_::_PLYReader_() {
 
 bool _PLYReader_::read(const std::string& _filename, BaseImporter& _bi, Options& _opt) {
 
-    std::fstream in(_filename.c_str(), (std::ios_base::binary | std::ios_base::in) );
+    std::ifstream in;
+    openRead(_filename, _opt, in);
 
     if (!in.is_open() || !in.good()) {
         omerr() << "[PLYReader] : cannot not open file " << _filename << std::endl;
@@ -764,7 +765,8 @@ bool _PLYReader_::can_u_read(const std::string& _filename) const {
     // does not call BaseReader::read_magic()!!!
 
     if (BaseReader::can_u_read(_filename)) {
-        std::ifstream ifs(_filename.c_str());
+        std::ifstream ifs;
+        openRead(_filename, Options(), ifs);
         if (ifs.is_open() && can_u_read(ifs)) {
             ifs.close();
             return true;

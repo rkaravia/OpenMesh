@@ -109,8 +109,8 @@ bool
 _OFFReader_::read(const std::string& _filename, BaseImporter& _bi,
                   Options& _opt)
 {
-  std::ifstream ifile(_filename.c_str(), (options_.is_binary() ? std::ios::binary | std::ios::in
-                                                           : std::ios::in) );
+  std::ifstream ifile;
+  openRead(_filename, _opt, ifile);
 
   if (!ifile.is_open() || !ifile.good())
   {
@@ -614,7 +614,8 @@ bool _OFFReader_::can_u_read(const std::string& _filename) const
   // does not call BaseReader::read_magic()!!!
   if (BaseReader::can_u_read(_filename))
   {
-    std::ifstream ifs(_filename.c_str());
+    std::ifstream ifs;
+    openRead(_filename, Options(), ifs);
     if (ifs.is_open() && can_u_read(ifs))
     {
       ifs.close();

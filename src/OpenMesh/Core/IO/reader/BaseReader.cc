@@ -47,6 +47,12 @@
 #include <algorithm>
 #include <string>
 #include <iterator>
+
+#ifdef _WIN32
+  #include <codecvt>
+  #include <locale>
+#endif
+
 #if defined(OM_CC_MIPS)
 #  include <ctype.h>
 #else
@@ -121,6 +127,29 @@ check_extension(const std::string& _fname, const std::string& _ext) const
   }
   return false;  
 }
+
+
+//-----------------------------------------------------------------------------
+
+
+bool
+BaseReader::
+openRead(const std::string& _filename, Options _opt, std::ifstream& _is) const
+{
+  std::ios_base::openmode mode = (_opt.is_binary()
+                                  ? std::ios_base::in | std::ios_base::binary
+                                  : std::ios_base::in);
+#ifdef _WIN32
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+  // convert UTF-8 to UTF-16
+  const std::wstring path_str = converter.from_bytes(_filename);
+#else
+  const std::string& path_str = _filename;
+#endif
+  _is.open(path_str.c_str(), mode);
+  return _is.is_open();
+}
+
 
 
 //=============================================================================

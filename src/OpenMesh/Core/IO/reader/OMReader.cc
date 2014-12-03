@@ -92,7 +92,8 @@ bool _OMReader_::read(const std::string& _filename, BaseImporter& _bi, Options& 
   fileOptions_ = Options::Binary;
 
   // Open file
-  std::ifstream ifs(_filename.c_str(), std::ios::binary);
+  std::ifstream ifs;
+  openRead(_filename, _opt, ifs);
 
   /* Clear formatting flag skipws (Skip whitespaces). If set, operator>> will
    * skip bytes set to whitespace chars (e.g. 0x20 bytes) in
@@ -220,7 +221,8 @@ bool _OMReader_::can_u_read(const std::string& _filename) const
   // !!! Assuming BaseReader::can_u_parse( std::string& )
   // does not call BaseReader::read_magic()!!!
   if (this->BaseReader::can_u_read(_filename)) {
-    std::ifstream ifile(_filename.c_str());
+    std::ifstream ifile;
+    openRead(_filename, Options(), ifile);
     if (ifile && can_u_read(ifile))
       return true;
   }

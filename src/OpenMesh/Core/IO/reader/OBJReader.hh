@@ -163,7 +163,7 @@ private:
 
   MaterialList materials_;
 
-  bool read_material( std::fstream& _in );
+  bool read_material( std::istream& _in );
 
 private:
 

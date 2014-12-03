@@ -115,15 +115,15 @@ read(const std::string& _filename, BaseImporter& _bi, Options& _opt)
   {
     case STLA:
     {
-      result = read_stla(_filename, _bi, _opt);
       _opt -= Options::Binary;
+      result = read_stla(_filename, _bi, _opt);
       break;
     }
 
     case STLB:
     {
-      result = read_stlb(_filename, _bi, _opt);
       _opt += Options::Binary;
+      result = read_stlb(_filename, _bi, _opt);
       break;
     }
 
@@ -206,7 +206,8 @@ bool
 _STLReader_::
 read_stla(const std::string& _filename, BaseImporter& _bi, Options& _opt) const
 {
-  std::fstream in( _filename.c_str(), std::ios_base::in );
+  std::ifstream in;
+  openRead(_filename, _opt, in);
 
   if (!in)
   {
@@ -338,7 +339,8 @@ bool
 _STLReader_::
 read_stlb(const std::string& _filename, BaseImporter& _bi, Options& _opt) const
 {
-  std::fstream in( _filename.c_str(), std::ios_base::in | std::ios_base::binary);
+  std::ifstream in;
+  openRead(_filename, _opt, in);
 
   if (!in)
   {

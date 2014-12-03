@@ -55,7 +55,7 @@
 
 
 // STD C++
-#include <iostream>
+#include <fstream>
 #include <string>
 #include <cctype>
 #include <functional>
@@ -133,6 +133,8 @@ protected:
   // case insensitive search for _ext in _fname.
   bool check_extension(const std::string& _fname, 
 		       const std::string& _ext) const;
+
+  bool openRead(const std::string& _filename, Options _opt, std::ifstream& _is) const;
 };
 
 
