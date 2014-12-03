@@ -103,7 +103,8 @@ _OMWriter_::write(const std::string& _filename, BaseExporter& _be,
 
   _opt += Options::Binary; // only binary format supported
 
-  std::ofstream ofs(_filename.c_str(), std::ios::binary);
+  std::ofstream ofs;
+  openWrite(_filename, _opt, ofs);
 
   // check if file is open
   if (!ofs.is_open())

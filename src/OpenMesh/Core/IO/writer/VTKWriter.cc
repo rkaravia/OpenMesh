@@ -28,7 +28,8 @@ _VTKWriter_::_VTKWriter_() { IOManager().register_module(this); }
 
 bool _VTKWriter_::write(const std::string& _filename, BaseExporter& _be, Options _opt, std::streamsize _precision) const
 {
-    std::ofstream out(_filename.c_str());
+    std::ofstream out;
+    openWrite(_filename, _opt, out);
 
     if (!out) {
         omerr() << "[VTKWriter] : cannot open file " << _filename << std::endl;
