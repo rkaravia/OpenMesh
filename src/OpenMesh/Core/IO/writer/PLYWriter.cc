@@ -97,8 +97,6 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
   options_ = _opt;
 
   // open file
-//  std::fstream out(_filename.c_str(), (_opt.check(Options::Binary) ? std::ios_base::binary | std::ios_base::out
-//                                                         : std::ios_base::out) );
   std::ofstream out;
   openWrite(_filename, _opt, out);
 

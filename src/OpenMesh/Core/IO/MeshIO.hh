@@ -135,39 +135,6 @@ read_mesh(Mesh&         _mesh,
 }
 
 
-/** \brief Read a mesh from file open std::istream.
-
-    The file format is determined by parameter _ext. _ext has to include
-    ".[format]" in order to work properly (e.g. ".OFF")
-
-    \note If you link statically against OpenMesh, you have to add
-          the define OM_STATIC_BUILD to your application. This will
-          ensure that readers and writers get initialized correctly.
-
-    @param _mesh     The target mesh that will be filled with the read data
-    @param _is       stream to load the data from
-    @param _ext      The file format that is written to the stream
-    @param _opt      Reader options (e.g. skip loading of normals ... depends
-                     on the reader capabilities)
-    @param _clear    Clear the target data before filling it (allows to
-                     load multiple files into one Mesh)
-
-    @return Successful?
-*/
-//template <class Mesh>
-//bool
-//read_mesh(Mesh&         _mesh,
-//	  std::istream&       _is,
-//	  const std::string&  _ext,
-//	  Options&            _opt,
-//	  bool                _clear = true)
-//{
-//  if (_clear) _mesh.clear();
-//  ImporterT<Mesh> importer(_mesh);
-//  return IOManager().read(_is,_ext, importer, _opt);
-//}
-
-
 
 //-----------------------------------------------------------------------------
 

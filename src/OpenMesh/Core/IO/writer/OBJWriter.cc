@@ -85,7 +85,6 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 {
   std::ofstream out;
   openWrite(_filename, _opt, out);
-//  std::fstream out(_filename.c_str(), std::ios_base::out );
 
   if (!out)
   {
@@ -245,7 +244,6 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
     std::string matFile = path_ + objName_ + ".mat";
 
-//    std::fstream matStream(matFile.c_str(), std::ios_base::out );
     std::ofstream matStream;
     openWrite(matFile, _opt, matStream);
 
