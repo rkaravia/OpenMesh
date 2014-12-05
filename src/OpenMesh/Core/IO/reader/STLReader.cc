@@ -460,7 +460,7 @@ check_stl_type(const std::string& _filename) const
 
   // read number of triangles
   char dummy[100];
-  fread(dummy, 1, 80, in);
+  size_t dummy2 = fread(dummy, 1, 80, in);
   size_t nT = read_int(in, swapFlag);
 
 

@@ -56,6 +56,10 @@
 // -------------------- OpenMesh
 #include <OpenMesh/Core/IO/BinaryHelper.hh>
 
+#ifndef _WIN32
+#pragma GCC diagnostic ignored "-Wunused-result"
+#endif
+
 
 //== NAMESPACES ===============================================================
 
