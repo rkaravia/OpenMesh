@@ -89,20 +89,19 @@ public: //-------------------------------------------------------- public types
   class Observer
   {
   public:
-    Observer(size_t _step) :
-      step_(_step) {
+    Observer(size_t _step_size) :
+      step_size_(_step_size) {
     }
 
     virtual ~Observer() {
     }
 
-    size_t step() const                 { return step_; }
-    void set_step(size_t _step)         { step_ = _step; }
+    size_t step_size() const                 { return step_size_; }
 
     virtual bool notify( size_t _step ) = 0;
 
   private:
-    size_t step_;
+    size_t step_size_;
   };
 
 public: //------------------------------------------------------ public methods

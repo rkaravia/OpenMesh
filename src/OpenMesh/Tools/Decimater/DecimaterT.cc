@@ -217,7 +217,7 @@ size_t DecimaterT<Mesh>::decimate(size_t _n_collapses, Observer* observer) {
     }
 
     // notify observer and stop if the observer requests it
-    if (observer && n_collapses % observer->step() == 0) {
+    if (observer && n_collapses % observer->step_size() == 0) {
       if (!observer->notify(n_collapses)) {
         return n_collapses;
       }
@@ -272,6 +272,8 @@ size_t DecimaterT<Mesh>::decimate_to_faces(size_t _nv, size_t _nf, Observer* obs
 
   const bool update_normals = mesh_.has_face_normals();
 
+  size_t step_last_notification = 0;
+
   // process heap
   while ((!heap_->empty()) && (_nv < nv) && (_nf < nf)) {
     // get 1st heap entry
@@ -324,9 +326,14 @@ size_t DecimaterT<Mesh>::decimate_to_faces(size_t _nv, size_t _nf, Observer* obs
       heap_vertex(*s_it);
     }
 
-    // notify observer and stop if the observer requests it
-    if (observer && n_collapses % observer->step() == 0) {
-      if (!observer->notify(n_collapses)) {
+    size_t n_faces_removed = mesh_.n_faces() - nf;
+
+    // since the number of removed faces grows by 1 or 2 every iteration,
+    // we cannot just use modulo to check when the observer has to be notified
+    if (observer && n_faces_removed - step_last_notification >= observer->step_size()) {
+      step_last_notification += observer->step_size();
+      // notify observer and stop if the observer requests it
+      if (!observer->notify(n_faces_removed)) {
         return n_collapses;
       }
     }
