@@ -111,10 +111,10 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
     }
 
     //remove the file extension
-    dot = _filename.find_last_of(".");
+    dot = objName_.find_last_of(".");
 
     if(dot != std::string::npos)
-      objName_ = objName_.substr(0,dot-1);
+      objName_ = objName_.substr(0,dot);
   }
 
   bool result = write(out, _be, _opt, _precision);
@@ -217,6 +217,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   VertexHandle vh;
   std::vector<VertexHandle> vhandles;
   bool useMaterial = false;
+  std::string mtlFileName;
   OpenMesh::Vec3f c;
   OpenMesh::Vec4f cA;
   // Using \n instead of std::endl is a lot faster because it does not flush
@@ -242,18 +243,19 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   if ( _opt.face_has_color() || _opt.mesh_has_texfile() ) {
     useMaterial = true;
 
-    std::string matFile = path_ + objName_ + ".mat";
+    mtlFileName = objName_ + ".mtl";
+    std::string mtlFilePath = path_ + mtlFileName;
 
-    std::ofstream matStream;
-    openWrite(matFile, _opt, matStream);
+    std::ofstream mtlStream;
+    openWrite(mtlFilePath, _opt, mtlStream);
 
-    if (!matStream)
+    if (!mtlStream)
     {
-      omerr() << "[OBJWriter] : cannot write material file " << matFile << std::endl;
+      omerr() << "[OBJWriter] : cannot write material file " << mtlFilePath << std::endl;
       return false;
     } else {
-      writeMaterial(matStream, _be, _opt);
-      matStream.close();
+      writeMaterial(mtlStream, _be, _opt);
+      mtlStream.close();
     }
   }
 
@@ -263,7 +265,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
   // material file
   if ( useMaterial )
-    _out << "mtllib " << objName_ << ".mat" << endl;
+    _out << "mtllib " << mtlFileName << endl;
 
   // vertex data (point, normals, texcoords)
   for (i=0, nV=_be.n_vertices(); i<nV; ++i)
