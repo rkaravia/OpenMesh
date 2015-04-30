@@ -210,7 +210,7 @@ _OBJWriter_::
 write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _precision) const
 {
   unsigned int idx;
-  size_t i, j,nV, nF;
+  size_t i, j, k, nV, nF;
   Vec3f v, n;
   Vec2f t;
   std::vector<Vec2f> texcoords;
@@ -220,6 +220,9 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   std::string mtlFileName;
   OpenMesh::Vec3f c;
   OpenMesh::Vec4f cA;
+  VertexTexcoordMap vtm;
+  std::vector<int> faceTexcoordIdx;
+  int nextTexcoordIdx;
   // Using \n instead of std::endl is a lot faster because it does not flush
   char endl = '\n';
 
@@ -287,6 +290,8 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   size_t lastMat = std::numeric_limits<std::size_t>::max();
 
   if ( _opt.face_has_texcoord() ) {
+    nextTexcoordIdx = 1;
+    vtm.resize(_be.n_vertices());
     _out << "usemtl texture" << endl;
   }
 
@@ -319,17 +324,38 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
       }
     }
 
+    _be.get_vhandles(FaceHandle(int(i)), vhandles);
+
     if ( _opt.face_has_texcoord() ) {
+      faceTexcoordIdx.clear();
       _be.texcoords(FaceHandle(int(i)), texcoords);
       for (j=0; j<3; ++j)
       {
-        _out << "vt " << texcoords[j][0] << " " << texcoords[j][1] << endl;
+        // list of all previously encountered texcoords for current vertex
+        VertexTexcoords& vertexTexcoords = vtm[vhandles[j].idx()];
+
+        // find texcoord in list for this vertex
+        bool found = false;
+        for (k=0; k<vertexTexcoords.size(); ++k)
+        {
+          if (vertexTexcoords[k].t_ == texcoords[j])
+          {
+            found = true;
+            faceTexcoordIdx.push_back(vertexTexcoords[k].idx_);
+            break;
+          }
+        }
+        if (!found)
+        {
+          _out << "vt " << texcoords[j][0] << " " << texcoords[j][1] << endl;
+          vertexTexcoords.push_back(VertexTexcoord(nextTexcoordIdx, texcoords[j]));
+          faceTexcoordIdx.push_back(nextTexcoordIdx);
+          ++nextTexcoordIdx;
+        }
       }
     }
 
     _out << "f";
-
-    _be.get_vhandles(FaceHandle(int(i)), vhandles);
 
     for (j=0; j< vhandles.size(); ++j)
     {
@@ -348,7 +374,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
         // write halfedge texture coordinate index
         if ( _opt.face_has_texcoord() )
-          _out  << (i * 3 + j + 1);
+          _out  << faceTexcoordIdx[j];
 
         // write vertex normal index
         if ( _opt.vertex_has_normal() ) {

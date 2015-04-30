@@ -109,6 +109,19 @@ private:
 
   void writeMaterial(std::ostream& _out, BaseExporter&, Options) const;
 
+  struct VertexTexcoord
+  {
+    VertexTexcoord(int _idx, Vec2f _t) : idx_(_idx), t_(_t) {}
+
+    // Texcoord idx
+    int idx_;
+    // Texcoord
+    Vec2f t_;
+  };
+
+  typedef std::vector< VertexTexcoord > VertexTexcoords;
+  typedef std::vector< VertexTexcoords > VertexTexcoordMap;
+
 
 };
 
