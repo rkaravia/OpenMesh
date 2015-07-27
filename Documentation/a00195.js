@@ -1,8 +1,17 @@
 var a00195 =
 [
-    [ "VertexT", "a00299.html", "a00299" ],
-    [ "VertexAttributes", "a00195.html#a297892b3fc9b3f754e7d7b15cfc1fa17a27d4d5477372347aca7261baabbabba7", null ],
-    [ "HalfedgeAttributes", "a00195.html#ab19d4e8864fa1f5835b2c31af21f0d35aab2c994340799eab00af080acf419892", null ],
-    [ "EdgeAttributes", "a00195.html#a51ec5f09f191a841dae5d06032b74020a9a270cdd9bb89b4f3b227bdf5263d394", null ],
-    [ "FaceAttributes", "a00195.html#a01f84f045d03c952990444ce2c14b467a29d6a5d6188fbdfacd26d642e5024e95", null ]
+    [ "mesh_t", "a00195.html#a8c727c6d732be3d34baee72afc5ab822", null ],
+    [ "parent_t", "a00195.html#af35a3b15e8c6893b99c995972777ae90", null ],
+    [ "queueElement", "a00195.html#ad40663d180c47ef016582a8843329465", null ],
+    [ "real_t", "a00195.html#ad29c40f3adbb8d27e1dc7b9a6e7c380c", null ],
+    [ "weight_t", "a00195.html#a7dfdb07debd8e0bcd3133a28f5ba86d1", null ],
+    [ "weights_t", "a00195.html#ace17b8d9ec6a212275c2d25dc128c81c", null ],
+    [ "LongestEdgeT", "a00195.html#a4f2f0ff499884ed28ab2c232e1ccfb5b", null ],
+    [ "LongestEdgeT", "a00195.html#afffa088e8220f07f00d4016fad24144a", null ],
+    [ "~LongestEdgeT", "a00195.html#a985d4803b05b236e3ea06c597eb84829", null ],
+    [ "cleanup", "a00195.html#a227a1bae357bc040507232393a4231a7", null ],
+    [ "name", "a00195.html#a4163e027b013a4195c353cf83ea7f0b4", null ],
+    [ "prepare", "a00195.html#a148e2fcd262625cec18244ba337e3ace", null ],
+    [ "set_max_edge_length", "a00195.html#ad234a798b7522ed457283bc2099128a0", null ],
+    [ "subdivide", "a00195.html#a98d1a40c83b9b5ece9c0c467ca6cc588", null ]
 ];

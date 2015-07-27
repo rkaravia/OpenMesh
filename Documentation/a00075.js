@@ -1,10 +1,12 @@
 var a00075 =
 [
-    [ "_STLWriter_", "a00075.html#af0f85fc9d552a68179f3697fe820972d", null ],
-    [ "~_STLWriter_", "a00075.html#a340821184c3f578745d5739def5af9e2", null ],
-    [ "binary_size", "a00075.html#a0e5685046e08e90577ff1e230bd2498a", null ],
-    [ "get_description", "a00075.html#a88b1ada06eb85171f9bdf14762636276", null ],
-    [ "get_extensions", "a00075.html#acdd9bea02020e107711e0b475f160cc9", null ],
-    [ "write", "a00075.html#aa202ae93b2cd9c7946291a56478ec570", null ],
-    [ "write", "a00075.html#a2fe2fe180f3efdd8a7d8650f7791081a", null ]
+    [ "_OMWriter_", "a00075.html#a124124ec1cf547f34f7f07c3c5345267", null ],
+    [ "~_OMWriter_", "a00075.html#ae824f4266ba7a3230c483f10c90b2c22", null ],
+    [ "binary_size", "a00075.html#afa0cc90c2f427187ec8399ddd86eec87", null ],
+    [ "get_description", "a00075.html#a9f5b8b9fafa088ef99ffd94a456b8a14", null ],
+    [ "get_extensions", "a00075.html#ad2c1f43c1f3c53ee395b7d0c19d59328", null ],
+    [ "store_binary_custom_chunk", "a00075.html#ae576fc20ff55ab6828fa35df5696a3df", null ],
+    [ "write", "a00075.html#aaa236eda6d8b4232d16f532ecbe42b4b", null ],
+    [ "write", "a00075.html#aa110cadf1ddcac647f33076fd276d9e4", null ],
+    [ "write_binary", "a00075.html#aca64ba480920d5e5954cbf0334cd585a", null ]
 ];

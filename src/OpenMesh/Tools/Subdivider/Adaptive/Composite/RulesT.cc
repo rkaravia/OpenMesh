@@ -1,41 +1,48 @@
-/*===========================================================================*\
+/* ========================================================================= *
  *                                                                           *
  *                               OpenMesh                                    *
- *      Copyright (C) 2001-2014 by Computer Graphics Group, RWTH Aachen      *
- *                           www.openmesh.org                                *
+ *           Copyright (c) 2001-2015, RWTH-Aachen University                 *
+ *           Department of Computer Graphics and Multimedia                  *
+ *                          All rights reserved.                             *
+ *                            www.openmesh.org                               *
  *                                                                           *
- *---------------------------------------------------------------------------* 
- *  This file is part of OpenMesh.                                           *
+ *---------------------------------------------------------------------------*
+ * This file is part of OpenMesh.                                            *
+ *---------------------------------------------------------------------------*
  *                                                                           *
- *  OpenMesh is free software: you can redistribute it and/or modify         * 
- *  it under the terms of the GNU Lesser General Public License as           *
- *  published by the Free Software Foundation, either version 3 of           *
- *  the License, or (at your option) any later version with the              *
- *  following exceptions:                                                    *
+ * Redistribution and use in source and binary forms, with or without        *
+ * modification, are permitted provided that the following conditions        *
+ * are met:                                                                  *
  *                                                                           *
- *  If other files instantiate templates or use macros                       *
- *  or inline functions from this file, or you compile this file and         *
- *  link it with other files to produce an executable, this file does        *
- *  not by itself cause the resulting executable to be covered by the        *
- *  GNU Lesser General Public License. This exception does not however       *
- *  invalidate any other reasons why the executable file might be            *
- *  covered by the GNU Lesser General Public License.                        *
+ * 1. Redistributions of source code must retain the above copyright notice, *
+ *    this list of conditions and the following disclaimer.                  *
  *                                                                           *
- *  OpenMesh is distributed in the hope that it will be useful,              *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of           *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
- *  GNU Lesser General Public License for more details.                      *
+ * 2. Redistributions in binary form must reproduce the above copyright      *
+ *    notice, this list of conditions and the following disclaimer in the    *
+ *    documentation and/or other materials provided with the distribution.   *
  *                                                                           *
- *  You should have received a copy of the GNU LesserGeneral Public          *
- *  License along with OpenMesh.  If not,                                    *
- *  see <http://www.gnu.org/licenses/>.                                      *
+ * 3. Neither the name of the copyright holder nor the names of its          *
+ *    contributors may be used to endorse or promote products derived from   *
+ *    this software without specific prior written permission.               *
  *                                                                           *
-\*===========================================================================*/ 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS       *
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED *
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A           *
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER *
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,  *
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,       *
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR        *
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF    *
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
+ *                                                                           *
+ * ========================================================================= */
 
 /*===========================================================================*\
  *                                                                           *             
- *   $Revision: 990 $                                                         *
- *   $Date: 2014-02-05 10:01:07 +0100 (Mi, 05 Feb 2014) $                   *
+ *   $Revision: 1301 $                                                         *
+ *   $Date: 2015-06-25 12:45:05 +0200 (Do, 25 Jun 2015) $                   *
  *                                                                           *
 \*===========================================================================*/
 
@@ -137,13 +144,13 @@ Tvv3<M>::raise(typename M::FaceHandle& _fh, state_t _target_state)
 
       Base::mesh_.split(_fh, vh);
 
-      int  valence = 0;
+      typename M::Scalar valence(0.0);
 
       // calculate display position for new vertex
       for (vv_it = Base::mesh_.vv_iter(vh); vv_it.is_valid(); ++vv_it)
       {
         position += Base::mesh_.point(*vv_it);
-        ++valence;
+        valence += 1.0;
       }
 
       position /= valence;
@@ -841,12 +848,12 @@ void VF<M>::raise(typename M::FaceHandle& _fh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (fv_it = Base::mesh_.fv_iter(_fh); fv_it.is_valid(); ++fv_it) {
 
-      ++valence;
+      valence  += 1.0;
       position += Base::mesh_.data(*fv_it).position(_target_state - 1);
     }
 
@@ -912,12 +919,12 @@ void FF<M>::raise(typename M::FaceHandle& _fh, state_t _target_state) {
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (ff_it = Base::mesh_.ff_iter(_fh); ff_it.is_valid(); ++ff_it) {
 
-      ++valence;
+      valence  += 1.0;
 
       position += Base::mesh_.data(*ff_it).position(_target_state - 1);
     }
@@ -971,12 +978,12 @@ void FFc<M>::raise(typename M::FaceHandle& _fh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (ff_it = Base::mesh_.ff_iter(_fh); ff_it.is_valid(); ++ff_it)
     {
-      ++valence;
+      valence += 1.0;
       position += Base::mesh_.data(*ff_it).position(_target_state - 1);
     }
 
@@ -1041,12 +1048,12 @@ void FV<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (vf_it = Base::mesh_.vf_iter(_vh); vf_it.is_valid(); ++vf_it) {
 
-      ++valence;
+      valence  += 1.0;
       position += Base::mesh_.data(*vf_it).position(_target_state - 1);
     }
 
@@ -1166,7 +1173,7 @@ void FVc<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
     c = _2over3 * ( cos( _2pi / valence) + 1.0);
 #else
     valence = Base::mesh_.valence(_vh);
-    c       = coeff(valence);
+    c       = typename M::Scalar(coeff(valence));
 #endif
 
 
@@ -1186,7 +1193,7 @@ void FVc<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
 
           position += MOBJ(Base::mesh_.FH(*voh_it)).position(_target_state - 1) * c;
 
-          position += MOBJ(Base::mesh_.FH(Base::mesh_.OHEH(Base::mesh_.NHEH(*voh_it)))).position(_target_state - 1) * (1.0 - c);
+          position += MOBJ(Base::mesh_.FH(Base::mesh_.OHEH(Base::mesh_.NHEH(*voh_it)))).position(_target_state - 1) * ( typename M::Scalar(1.0) - c);
         }
         else {
 
@@ -1200,7 +1207,7 @@ void FVc<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
       }
     } 
 
-    position /= valence;
+    position /= typename M::Scalar(valence);
 
     MOBJ(_vh).set_position(_target_state, position);
     MOBJ(_vh).inc_state();
@@ -1284,13 +1291,12 @@ void VV<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (vv_it = Base::mesh_.vv_iter(_vh); vv_it.is_valid(); ++vv_it) {
 
-      ++valence;
-
+      valence  += 1.0;
       position += Base::mesh_.data(*vv_it).position(_target_state - 1);
     }
 
@@ -1354,13 +1360,13 @@ void VVc<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
     typename M::Scalar c;
 
     for (vv_it = Base::mesh_.vv_iter(_vh); vv_it.is_valid(); ++vv_it)
     {
-      ++valence;
+      valence += 1.0;
       position += Base::mesh_.data(*vv_it).position(_target_state - 1);
     }
 
@@ -1411,10 +1417,9 @@ void VE<M>::raise(typename M::EdgeHandle& _eh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    const typename M::Scalar valence(2.0);
 
-    valence = 2;
     position += MOBJ(Base::mesh_.TVH(hh1)).position(_target_state - 1);
     position += MOBJ(Base::mesh_.TVH(hh2)).position(_target_state - 1);
 
@@ -1471,27 +1476,26 @@ void VdE<M>::raise(typename M::EdgeHandle& _eh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(2.0);
 
-    valence = 2;
     position += MOBJ(Base::mesh_.TVH(hh1)).position(_target_state - 1);
     position += MOBJ(Base::mesh_.TVH(hh2)).position(_target_state - 1);
 
     if (fh1.is_valid()) {
 
       position += MOBJ(Base::mesh_.TVH(Base::mesh_.NHEH(hh1))).position(_target_state - 1);
-      ++valence;
+      valence += 1.0;
     }
 
     if (fh2.is_valid()) {
       
       position += MOBJ(Base::mesh_.TVH(Base::mesh_.NHEH(hh2))).position(_target_state - 1);
-      ++valence;
+      valence += 1.0;
     }
 
     if (Base::number() == Base::subdiv_rule()->Base::number() + 1) 
-      valence = 4;
+      valence = 4.0;
 
     position /= valence;
 
@@ -1557,14 +1561,13 @@ VdEc<M>::raise(typename M::EdgeHandle& _eh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    const typename M::Scalar valence(4.0);
     typename M::Scalar c;
 
     // choose coefficient c
     c = Base::coeff();
 
-    valence = 4;
     position += MOBJ(Base::mesh_.TVH(hh1)).position(_target_state - 1) * c;
     position += MOBJ(Base::mesh_.TVH(hh2)).position(_target_state - 1) * c;
     position += MOBJ(Base::mesh_.TVH(Base::mesh_.NHEH(hh1))).position(_target_state - 1) * (0.5 - c);
@@ -1624,14 +1627,14 @@ void EV<M>::raise(typename M::VertexHandle& _vh, state_t _target_state)
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (ve_it = Base::mesh_.ve_iter(_vh); ve_it.is_valid(); ++ve_it) {
 
       if (Base::mesh_.data(*ve_it).final()) {
 
-        ++valence;
+        valence += 1.0;
 
         position += Base::mesh_.data(*ve_it).position(_target_state - 1);
       }
@@ -1821,20 +1824,20 @@ EF<M>::raise(typename M::FaceHandle& _fh, state_t _target_state) {
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(0);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    typename M::Scalar valence(0.0);
 
     for (fe_it = Base::mesh_.fe_iter(_fh); fe_it.is_valid(); ++fe_it) {
 
       if (Base::mesh_.data(*fe_it).final()) {
 
-        ++valence;
+        valence += 1.0;
 
         position += Base::mesh_.data(*fe_it).position(_target_state - 1);
       }
     }
 
-    assert (valence == 3);
+    assert (valence == 3.0);
 
     position /= valence;
 
@@ -1874,8 +1877,8 @@ FE<M>::raise(typename M::EdgeHandle& _eh, state_t _target_state) {
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(2);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    const typename M::Scalar valence(2.0);
 
     position += MOBJ(Base::mesh_.FH(Base::mesh_.HEH(_eh, 0))).position(_target_state - 1);
     
@@ -1930,8 +1933,8 @@ EdE<M>::raise(typename M::EdgeHandle& _eh, state_t _target_state) {
     }
 
     // calculate new position
-    typename M::Point position(0.0, 0.0, 0.0);
-    int                  valence(4);
+    typename M::Point  position(0.0, 0.0, 0.0);
+    const typename M::Scalar valence(4.0);
 
     position += MOBJ(Base::mesh_.EH(Base::mesh_.NHEH(hh1))).position(_target_state - 1);
     position += MOBJ(Base::mesh_.EH(Base::mesh_.PHEH(hh1))).position(_target_state - 1);
@@ -1988,7 +1991,7 @@ EdEc<M>::raise(typename M::EdgeHandle& _eh, state_t _target_state)
 
     // calculate new position
     typename M::Point  position(0.0, 0.0, 0.0);
-    int                valence(4);
+    const typename M::Scalar valence(4.0);
     typename M::Scalar c;
 
     position += MOBJ(Base::mesh_.EH(Base::mesh_.NHEH(hh1))).position(_target_state - 1);

@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['using_20and_20understanding_20openmesh',['Using and understanding OpenMesh',['../a00006.html',1,'index']]],
-  ['using_20iterators_20and_20circulators',['Using iterators and circulators',['../a00042.html',1,'tutorial']]],
-  ['using_20_28custom_29_20properties',['Using (custom) properties',['../a00044.html',1,'tutorial']]],
-  ['using_20stl_20algorithms',['Using STL algorithms',['../a00046.html',1,'tutorial']]],
-  ['using_20standard_20properties',['Using standard properties',['../a00048.html',1,'tutorial']]],
-  ['using_20mesh_20attributes_20and_20traits',['Using mesh attributes and traits',['../a00050.html',1,'tutorial']]],
-  ['using_20io_3a_3aoptions',['Using IO::Options',['../a00056.html',1,'tutorial']]]
+  ['the_20halfedge_20data_20structure',['The Halfedge Data Structure',['../a00016.html',1,'mesh_docu']]],
+  ['todo_20list',['Todo List',['../a00742.html',1,'']]],
+  ['tutorials_20_28code_20examples_29',['Tutorials (code examples)',['../a00066.html',1,'index']]]
 ];

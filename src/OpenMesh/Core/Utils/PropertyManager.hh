@@ -1,36 +1,43 @@
-/*===========================================================================*\
+/* ========================================================================= *
  *                                                                           *
  *                               OpenMesh                                    *
- *      Copyright (C) 2001-2014 by Computer Graphics Group, RWTH Aachen      *
- *                           www.openmesh.org                                *
+ *           Copyright (c) 2001-2015, RWTH-Aachen University                 *
+ *           Department of Computer Graphics and Multimedia                  *
+ *                          All rights reserved.                             *
+ *                            www.openmesh.org                               *
  *                                                                           *
  *---------------------------------------------------------------------------*
- *  This file is part of OpenMesh.                                           *
+ * This file is part of OpenMesh.                                            *
+ *---------------------------------------------------------------------------*
  *                                                                           *
- *  OpenMesh is free software: you can redistribute it and/or modify         *
- *  it under the terms of the GNU Lesser General Public License as           *
- *  published by the Free Software Foundation, either version 3 of           *
- *  the License, or (at your option) any later version with the              *
- *  following exceptions:                                                    *
+ * Redistribution and use in source and binary forms, with or without        *
+ * modification, are permitted provided that the following conditions        *
+ * are met:                                                                  *
  *                                                                           *
- *  If other files instantiate templates or use macros                       *
- *  or inline functions from this file, or you compile this file and         *
- *  link it with other files to produce an executable, this file does        *
- *  not by itself cause the resulting executable to be covered by the        *
- *  GNU Lesser General Public License. This exception does not however       *
- *  invalidate any other reasons why the executable file might be            *
- *  covered by the GNU Lesser General Public License.                        *
+ * 1. Redistributions of source code must retain the above copyright notice, *
+ *    this list of conditions and the following disclaimer.                  *
  *                                                                           *
- *  OpenMesh is distributed in the hope that it will be useful,              *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of           *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
- *  GNU Lesser General Public License for more details.                      *
+ * 2. Redistributions in binary form must reproduce the above copyright      *
+ *    notice, this list of conditions and the following disclaimer in the    *
+ *    documentation and/or other materials provided with the distribution.   *
  *                                                                           *
- *  You should have received a copy of the GNU LesserGeneral Public          *
- *  License along with OpenMesh.  If not,                                    *
- *  see <http://www.gnu.org/licenses/>.                                      *
+ * 3. Neither the name of the copyright holder nor the names of its          *
+ *    contributors may be used to endorse or promote products derived from   *
+ *    this software without specific prior written permission.               *
  *                                                                           *
-\*===========================================================================*/
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS       *
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED *
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A           *
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER *
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,  *
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,       *
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR        *
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF    *
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
+ *                                                                           *
+ * ========================================================================= */
 
 /*===========================================================================*\
  *                                                                           *
@@ -57,7 +64,7 @@ namespace OpenMesh {
  *
  * \code
  * TriMesh mesh;
- * PropertyManager<VPropHandleT<bool>, MeshT> visited(mesh, "visited.plugin-example.i8.informatik.rwth-aachen.de");
+ * PropertyManager<VPropHandleT<bool>, TriMesh> visited(mesh, "visited.plugin-example.i8.informatik.rwth-aachen.de");
  *
  * for (TriMesh::VertexIter vh_it = mesh.begin(); ... ; ...) {
  *     if (!visited[*vh_it]) {
@@ -69,7 +76,7 @@ namespace OpenMesh {
  */
 template<typename PROPTYPE, typename MeshT>
 class PropertyManager {
-#if __cplusplus > 199711L or __GXX_EXPERIMENTAL_CXX0X__
+#if __cplusplus > 199711L || defined(__GXX_EXPERIMENTAL_CXX0X__)
     public:
         PropertyManager(const PropertyManager&) = delete;
         PropertyManager& operator=(const PropertyManager&) = delete;
@@ -141,7 +148,11 @@ class PropertyManager {
 
         MeshT &getMesh() const { return *mesh_; }
 
-#if __cplusplus > 199711L or __GXX_EXPERIMENTAL_CXX0X__
+#if __cplusplus > 199711L || defined(__GXX_EXPERIMENTAL_CXX0X__)
+        /// Only for pre C++11 compatibility.
+
+        typedef PropertyManager<PROPTYPE, MeshT> Proxy;
+
         /**
          * Move constructor. Transfers ownership (delete responsibility).
          */
@@ -313,11 +324,73 @@ class PropertyManager {
          * @param end End iterator. (Exclusive.)
          * @param value The value the range will be set to.
          */
-        template<typename HandleTypeIterator>
+        template<typename HandleTypeIterator, typename PROP_VALUE>
         void set_range(HandleTypeIterator begin, HandleTypeIterator end,
-                typename PROPTYPE::const_reference value) {
+                const PROP_VALUE &value) {
             for (; begin != end; ++begin)
                 (*this)[*begin] = value;
+        }
+
+        /**
+         * Conveniently transfer the values managed by one property manager
+         * onto the values managed by a different property manager.
+         *
+         * @param begin Start iterator. Needs to dereference to HandleType. Will
+         * be used with this property manager.
+         * @param end End iterator. (Exclusive.) Will be used with this property
+         * manager.
+         * @param dst_propmanager The destination property manager.
+         * @param dst_begin Start iterator. Needs to dereference to the
+         * HandleType of dst_propmanager. Will be used with dst_propmanager.
+         * @param dst_end End iterator. (Exclusive.)
+         * Will be used with dst_propmanager. Used to double check the bounds.
+         */
+        template<typename HandleTypeIterator, typename PROPTYPE_2,
+                 typename MeshT_2, typename HandleTypeIterator_2>
+        void copy_to(HandleTypeIterator begin, HandleTypeIterator end,
+                PropertyManager<PROPTYPE_2, MeshT_2> &dst_propmanager,
+                HandleTypeIterator_2 dst_begin, HandleTypeIterator_2 dst_end) const {
+
+            for (; begin != end && dst_begin != dst_end; ++begin, ++dst_begin) {
+                dst_propmanager[*dst_begin] = (*this)[*begin];
+            }
+        }
+
+        template<typename RangeType, typename PROPTYPE_2,
+                 typename MeshT_2, typename RangeType_2>
+        void copy_to(const RangeType &range,
+                PropertyManager<PROPTYPE_2, MeshT_2> &dst_propmanager,
+                const RangeType_2 &dst_range) const {
+            copy_to(range.begin(), range.end(), dst_propmanager,
+                    dst_range.begin(), dst_range.end());
+        }
+
+        /**
+         * Copy the values of a property from a source range to
+         * a target range. The source range must not be smaller than the
+         * target range.
+         *
+         * @param prop_name Name of the property to copy. Must exist on the
+         * source mesh. Will be created on the target mesh if it doesn't exist.
+         *
+         * @param src_mesh Source mesh from which to copy.
+         * @param src_range Source range which to copy. Must not be smaller than
+         * dst_range.
+         * @param dst_mesh Destination mesh on which to copy.
+         * @param dst_range Destination range.
+         */
+        template<typename RangeType, typename MeshT_2, typename RangeType_2>
+        static void copy(const char *prop_name,
+                MeshT &src_mesh, const RangeType &src_range,
+                MeshT_2 &dst_mesh, const RangeType_2 &dst_range) {
+
+            typedef OpenMesh::PropertyManager<PROPTYPE, MeshT> DstPM;
+            DstPM dst(DstPM::createIfNotExists(dst_mesh, prop_name));
+
+            typedef OpenMesh::PropertyManager<PROPTYPE, MeshT_2> SrcPM;
+            SrcPM src(src_mesh, prop_name, true);
+
+            src.copy_to(src_range, dst, dst_range);
         }
 
     private:

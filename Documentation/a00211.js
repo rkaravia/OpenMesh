@@ -1,19 +1,14 @@
 var a00211 =
 [
-    [ "Base", "a00211.html#af8546d52b77726437395750b2eaa0cdb", null ],
-    [ "CollapseInfo", "a00211.html#a67e401883de3a0ec5ecdc1bb7e7e8937", null ],
-    [ "Handle", "a00211.html#a29ea31458ca5f541fc4d4c342ba9cd5a", null ],
-    [ "Mesh", "a00211.html#a3864b942ad7a74c389fb283bd55d1d73", null ],
-    [ "Point", "a00211.html#afad49f3a84130ebcc0a851cea2161739", null ],
-    [ "Self", "a00211.html#ab05734e6a95d6e330c6d115a2af8dc19", null ],
-    [ "value_type", "a00211.html#ae55ef761370282e939141ad9eaccd6ba", null ],
-    [ "ModRoundnessT", "a00211.html#a6e56da8acf8ce9a37577c07764e5c98b", null ],
-    [ "~ModRoundnessT", "a00211.html#a7b6ea799f3e162748ea4612654c56eb5", null ],
-    [ "collapse_priority", "a00211.html#ade6fe704e576b3e0f73453ffd8cad0fd", null ],
-    [ "name", "a00211.html#adbb0d330e11876fccd5a98dc50ea6f7f", null ],
-    [ "roundness", "a00211.html#a589e3679e530a184543609d23c585bf6", null ],
-    [ "set_error_tolerance_factor", "a00211.html#a14fa6c8dc43d6621a3c0cb5404e1a5de", null ],
-    [ "set_min_angle", "a00211.html#ab33b28845de4cbd93fa21012522e9275", null ],
-    [ "set_min_roundness", "a00211.html#a825e256b8e67059958ad809e9ace85c3", null ],
-    [ "unset_min_roundness", "a00211.html#a1269b89dd5b20adbf0d81a7a86cc549b", null ]
+    [ "CollapseInfo", "a00211.html#a88c5ffbe7d747ad3e90fcd32e9951b1c", null ],
+    [ "Mesh", "a00211.html#a9617c474f3118aad86f5f6695c5d03b2", null ],
+    [ "Module", "a00211.html#a729fab1aef13345727eb2f701beea745", null ],
+    [ "ModuleList", "a00211.html#a74adb268781e75a09eddb182e587b513", null ],
+    [ "ModuleListIterator", "a00211.html#a683d3ae2afa7e435737afae97575e543", null ],
+    [ "Self", "a00211.html#a1c7bb630a92dbc6c7f344a1522b21406", null ],
+    [ "MixedDecimaterT", "a00211.html#a3d9cb8dbee8294357f1ca9003f08d3a8", null ],
+    [ "~MixedDecimaterT", "a00211.html#a8af89fade2619e7ca14203c44b05cf12", null ],
+    [ "decimate", "a00211.html#a4dd84571cc11d67b43cbb139373d335f", null ],
+    [ "decimate_to", "a00211.html#a1fe2c6c2b3a63f00ca99b521c6fc2e42", null ],
+    [ "decimate_to_faces", "a00211.html#a649cc8f6cd7d423ee44374731f671494", null ]
 ];

@@ -1,9 +1,11 @@
 var a00230 =
 [
-    [ "Base", "a00230.html#a2c0e4444270cca10ec76c1974eb5519c", null ],
-    [ "This", "a00230.html#af665c29664937761d9b64e5df9571697", null ],
-    [ "ProgViewerWidget", "a00230.html#a72e80912092abd8bb1b3e4796121d037", null ],
-    [ "~ProgViewerWidget", "a00230.html#a4ad494c7f8234332333ca61bed735f58", null ],
-    [ "animate", "a00230.html#acce77d4fd8f47d063a5f2f51a4327a44", null ],
-    [ "open_prog_mesh", "a00230.html#a16691124f23e172916cefcef6c4d77d6", null ]
+    [ "Vec3", "a00230.html#a331e9c8f2939c95852d241ba0e27b288", null ],
+    [ "NormalConeT", "a00230.html#a2b95db3a078fa3c5937e35900a2e5672", null ],
+    [ "NormalConeT", "a00230.html#a53c15696a4f1069ed3b934cd3d297853", null ],
+    [ "angle", "a00230.html#ad9495676461cac88ac967efac0231743", null ],
+    [ "center_normal", "a00230.html#a19af98981b8a70c237f310a33b6d786e", null ],
+    [ "max_angle", "a00230.html#ab5026b4a5db7a2bf6a795544081c93b2", null ],
+    [ "max_angle", "a00230.html#a0634eb78ca82616573d989f2bfafde9e", null ],
+    [ "merge", "a00230.html#a6fd9ba88a9b0049a91429a87c73862ec", null ]
 ];

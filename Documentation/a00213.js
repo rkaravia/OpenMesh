@@ -1,16 +1,18 @@
 var a00213 =
 [
-    [ "MyData", "a00213.html#af6b8e9f33b1ca65a43c3e187089625d3", null ],
-    [ "MyData", "a00213.html#a2498835c0e5cc2dffd0624761323d092", null ],
-    [ "operator!=", "a00213.html#a46ae55a0c6232678a1874c941d334e07", null ],
-    [ "operator=", "a00213.html#a57b8a42348369ba717315dec331eeb94", null ],
-    [ "operator=", "a00213.html#ad1501cc901067bf7361add8c39b8c7c4", null ],
-    [ "operator=", "a00213.html#acbeea404456be838406c7ce4dc8dc749", null ],
-    [ "operator=", "a00213.html#af000b1f7dc0d848ecddff16d40280cb9", null ],
-    [ "operator=", "a00213.html#a407ac0251d256819a3653c32acc2a373", null ],
-    [ "operator==", "a00213.html#ac8fea49f6e48580a36c2d82dcde19734", null ],
-    [ "bval", "a00213.html#afcf33375954ae194227aeb7c733de983", null ],
-    [ "dval", "a00213.html#ad974b667c0e6a50fdf4f9f12dad940b9", null ],
-    [ "ival", "a00213.html#a06767e9b1ab7f029da96cdc22bf7ca98", null ],
-    [ "vec4fval", "a00213.html#a6253adfccb8274a8a8fe438628e98d2a", null ]
+    [ "Base", "a00213.html#ac37ddd719bc57f990b9a3748626b1121", null ],
+    [ "BaseModQ", "a00213.html#aa5a90b672232c5bb8efe086f0c42e1c7", null ],
+    [ "CollapseInfo", "a00213.html#a874de872cffd7fd61e0eab73de49626e", null ],
+    [ "Handle", "a00213.html#a4fbcd6d8549acfe9611b53d6bae22fb4", null ],
+    [ "level_t", "a00213.html#acfbcd130077fac4aa81b7c75f0e39e61", null ],
+    [ "Mesh", "a00213.html#ab568ca80fd223c6cce21b6bc9da561ae", null ],
+    [ "Self", "a00213.html#a496b6470a53f9c2991d96e762d4e8c9b", null ],
+    [ "ModBalancerT", "a00213.html#a35c84643ccb29982bd43ef790179be91", null ],
+    [ "~ModBalancerT", "a00213.html#a21611b06088681264380f678518666f7", null ],
+    [ "bits_for_roots", "a00213.html#a4265e1100e35cff41baaeb0f647848ae", null ],
+    [ "collapse_priority", "a00213.html#a627c9486bf8c3975363e4053a3d8c323", null ],
+    [ "initialize", "a00213.html#af1e70352151863eab2898b6963c845d9", null ],
+    [ "max_level", "a00213.html#a57e22af7ec8535987f15244cd5c5417b", null ],
+    [ "name", "a00213.html#a23b339e0465946a7dd2734be84510de9", null ],
+    [ "postprocess_collapse", "a00213.html#a7ae6cc4976c9b829a926a1f2c6b862d1", null ]
 ];

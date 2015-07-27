@@ -1,6 +1,6 @@
 var a00299 =
 [
-    [ "is_ancestor", "a00299.html#a23378dca1b5d038176edb65bae9bc4d7", null ],
-    [ "set_vhierarchy_node_handle", "a00299.html#ac49c783c14ec6299eaed195aaaf90968", null ],
-    [ "vhierarchy_node_handle", "a00299.html#ac353a7824801e051d845853a8b659c3d", null ]
+    [ "typed_size", "a00299.html#ad3a7847244ed2c2f402e8f6d91a688e1", null ],
+    [ "value_type", "a00299.html#a66951ec780374a3defbbafdd6ef9ef82", null ],
+    [ "vector_type", "a00299.html#a80a297d31a7aaa315fb99c385dcd435d", null ]
 ];

@@ -1,10 +1,13 @@
 var a00146 =
 [
-    [ "Handle", "a00146.html#ac018c5cebb4312fb2739947f7576d38c", null ],
-    [ "Inherited", "a00146.html#a9ab720e4b4d672bf659c5b9ffa9f5b1c", null ],
-    [ "Self", "a00146.html#a71125ce4381b3d62ba3bc3e695994ea0", null ],
-    [ "FF", "a00146.html#a96e5f6ba6eba3ea1718655bc5ffc9a7c", null ],
-    [ "raise", "a00146.html#ab5498b6b6e629ab2576917dd9d15fc48", null ],
-    [ "type", "a00146.html#a4cda1a6999f26436d8c7b352814b9f77", null ],
-    [ "CompositeT< M >", "a00146.html#a7cacb6579bb9d17013cf9f2b0bd3770f", null ]
+    [ "final", "a00146.html#ab003fede3ae653c274454ca3cd92041a", null ],
+    [ "inc_state", "a00146.html#a2505811c8e2c0082400da75c7c24da82", null ],
+    [ "position", "a00146.html#a762f33cf0c91df7996f732b58c95c26c", null ],
+    [ "red_halfedge", "a00146.html#a0176b783646e3c36ff785c40375ae2e6", null ],
+    [ "set_final", "a00146.html#ac4ac9944aeddb4fa2a828e67b75e5969", null ],
+    [ "set_not_final", "a00146.html#a5c6dda8d1218a740c8a8c1eabfb6a509", null ],
+    [ "set_position", "a00146.html#a104e5e9a6a014850d4727a3625851206", null ],
+    [ "set_red_halfedge", "a00146.html#adf1fd0736c853bc83597a264c0cd9d3e", null ],
+    [ "set_state", "a00146.html#a105b84e1cab336963664a98d5d1aeae5", null ],
+    [ "state", "a00146.html#a41fcc084e5e1a54f25bd932ca8954777", null ]
 ];

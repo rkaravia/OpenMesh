@@ -1,12 +1,12 @@
 var a00111 =
 [
-    [ "EdgeT", "a00129.html", "a00129" ],
-    [ "FaceT", "a00143.html", "a00143" ],
-    [ "State", "a00248.html", "a00248" ],
-    [ "VertexT", "a00298.html", "a00298" ],
-    [ "final_t", "a00111.html#a6130640284ae3223c2a7e3c54269d4f1", null ],
-    [ "state_t", "a00111.html#a13c642f3a0e8bfb626e99d0d27b7fdd9", null ],
-    [ "FaceAttributes", "a00111.html#a1e1040fa8c04f33cbbaa7aab37cb546aa0df83e391d1ec7a31f379421620ce1dd", null ],
-    [ "VertexAttributes", "a00111.html#a533639d55c85b8d64c6f969d50fa2d6ca22e7462f43622ff48a71f4839ddfc1da", null ],
-    [ "HalfedgeAttributes", "a00111.html#a7528f15abf88ab91fd9440e45a6670c6a0fc7210a7fffcd5b03b89a647e3ddf20", null ]
+    [ "EVCoeff", "a00141.html", "a00141" ],
+    [ "Coeff", "a00111.html#a320f56b1af47a737d99244aa8fb70a97", null ],
+    [ "Inherited", "a00111.html#aba7df5504247de7b66d792bb8e737eb9", null ],
+    [ "CompositeLoopT", "a00111.html#a19cc806819ab937cb3a7e341838b389a", null ],
+    [ "CompositeLoopT", "a00111.html#a7c8e16d1f259fa7b2918f3b827de33b1", null ],
+    [ "~CompositeLoopT", "a00111.html#a2f96b9c290c455fb1c0b13e59a91d0ed", null ],
+    [ "apply_rules", "a00111.html#a91afe60dc791d39f82547a151015de46", null ],
+    [ "name", "a00111.html#aa10076c127dbcf20623cc8d1808556c7", null ],
+    [ "coeffs_", "a00111.html#a3fb84da805914b8d6e4a20cb49ccf4e3", null ]
 ];

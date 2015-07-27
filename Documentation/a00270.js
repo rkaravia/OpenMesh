@@ -1,6 +1,8 @@
 var a00270 =
 [
-    [ "dst_t", "a00270.html#a442860d7b0cca8d2af02d91958c06fb0", null ],
-    [ "return_type", "a00270.html#a5a9d58bc60dbd80f24c2301a137e85e3", null ],
-    [ "src_t", "a00270.html#abcfcd211531edcef0deb6183a9d3f9da", null ]
+    [ "Color", "a00270.html#adef5b1eaa33d1e25481314372fe7a213", null ],
+    [ "Normal", "a00270.html#aea2975a936d5c8f0cec3d389c8f15696", null ],
+    [ "Point", "a00270.html#a01003afa1d44248483bdd563df2138f7", null ],
+    [ "Scalar", "a00270.html#a6a76bcf8df187de33f12ccd9ad2b2487", null ],
+    [ "TexCoord", "a00270.html#a9bf514a1a1bfe8d949ccb74623d7ba77", null ]
 ];

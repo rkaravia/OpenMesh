@@ -1,7 +1,9 @@
 var a00134 =
 [
-    [ "Value", "a00134.html#ae73830b84cc3c2cd81c50af54fe4d326", null ],
-    [ "value_type", "a00134.html#ac76dfbedbf22aecd1bb000e91e660a85", null ],
-    [ "EPropHandleT", "a00134.html#ae5d4bf422214f4efce0a3ca1c0d3ae0f", null ],
-    [ "EPropHandleT", "a00134.html#aebbec8f79243a2ec192af8609f585228", null ]
+    [ "length", "a00134.html#a04b92a3c0bf068c13dbfad8c0784458c", null ],
+    [ "midpoint", "a00134.html#af83ec027b152713753f465c250240a1b", null ],
+    [ "position", "a00134.html#a8c566a2ad362ee84f67f5fe26bb5b126", null ],
+    [ "set_length", "a00134.html#a60e01c534a8f803863f2ac23d7a41707", null ],
+    [ "set_midpoint", "a00134.html#ab8d5efe676d1e172f938407b956fad6f", null ],
+    [ "set_position", "a00134.html#a441985e044bd61f4367c5fa85d336801", null ]
 ];
