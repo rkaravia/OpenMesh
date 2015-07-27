@@ -1,10 +1,18 @@
 var a00147 =
 [
-    [ "Handle", "a00147.html#a5a2d726faab032bb1bd62aeac7fa9166", null ],
-    [ "Inherited", "a00147.html#ad32bff3876fa930013c4833b80d62b66", null ],
-    [ "Self", "a00147.html#af91496d23bb2c64007f1f5c2f8c62034", null ],
-    [ "FFc", "a00147.html#aa01f8d56c592617b1dfcb6fa57648522", null ],
-    [ "raise", "a00147.html#afb0e42d29a274c88fce07b1d6b3d740a", null ],
-    [ "type", "a00147.html#a0e9ad17ab9ce42cdb69cb542ae8fc3c1", null ],
-    [ "CompositeT< M >", "a00147.html#a7cacb6579bb9d17013cf9f2b0bd3770f", null ]
+    [ "generation", "a00147.html#a663f1fb7b0e9723b235c62ffde20aacb", null ],
+    [ "inc_generation", "a00147.html#a7371c9e25e2d535371fa38e126500b7d", null ],
+    [ "is_green", "a00147.html#a32717aaccd551b9f8a56fc22bd3ab495", null ],
+    [ "is_red", "a00147.html#ad0702fbffd16e1c67c350ca1674f32ee", null ],
+    [ "midpoint", "a00147.html#ad104a96f240b67fbd2bb494506ab96df", null ],
+    [ "position", "a00147.html#a4d5d907b624ee3e4db0110f835f1674d", null ],
+    [ "quality", "a00147.html#a0a3351403e08860bc6b18b7437b44e6e", null ],
+    [ "red_halfedge_handle", "a00147.html#a6c9f916a05b8e1757ad533effedeae89", null ],
+    [ "set_generation", "a00147.html#aafb52d5713777efe039aa2fa7dd3e884", null ],
+    [ "set_green", "a00147.html#a1f03d2b1307bd04192ae531c0a954ce9", null ],
+    [ "set_midpoint", "a00147.html#a3ad0dd275c9f770a11254e6f4bc80cbe", null ],
+    [ "set_position", "a00147.html#a1aa356342814ec9ceafd0583d1b18940", null ],
+    [ "set_quality", "a00147.html#a0a4314f0e9df1159a4541e5095d24bc7", null ],
+    [ "set_red", "a00147.html#a004cc994ef18f6d1d966e1a656473869", null ],
+    [ "set_red_halfedge_handle", "a00147.html#ae67da24b36cfa093ab51beac81fc02b5", null ]
 ];

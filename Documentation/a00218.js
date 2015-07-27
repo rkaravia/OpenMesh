@@ -1,17 +1,16 @@
 var a00218 =
 [
-    [ "is_float", "a00218.html#a618be7579ce6a3a032f45c781d3f0bac", null ],
-    [ "is_float", "a00218.html#a91f72bf52bc98a6aa3fe351950c80147", null ],
-    [ "is_float", "a00218.html#a079fc24ff33a963bee51d7d6120c37b9", null ],
-    [ "is_signed", "a00218.html#acf20a7a1be200c07cde321669273c292", null ],
-    [ "is_signed", "a00218.html#a30d9ad0165f9e338877c5c3d9674d22b", null ],
-    [ "is_signed", "a00218.html#a67c1050dfa28611bde388502dc62d99e", null ],
-    [ "is_signed", "a00218.html#ae4a6cd17fe730baab5665e5850fb39e2", null ],
-    [ "is_signed", "a00218.html#a3a80d6eade53a8b731788352a3d85e00", null ],
-    [ "max", "a00218.html#adcde35956f2ff7c4624cad66d7944eec", null ],
-    [ "max", "a00218.html#a046c5f9ff5b18276ef82efacf93acd96", null ],
-    [ "max", "a00218.html#aa00363608ac33e1b8745e0f6f02d0d4a", null ],
-    [ "min", "a00218.html#a299caf73cac6f473ca40c8df8c5c9c97", null ],
-    [ "min", "a00218.html#a35f1885b497acac6607d87450d325aeb", null ],
-    [ "min", "a00218.html#a6c46eeeca884d6b88a70b1d211f9e756", null ]
+    [ "mesh_t", "a00218.html#a4c2bd18d13af40e004814e66e2e83f21", null ],
+    [ "parent_t", "a00218.html#a32cac0953e9ccfdab3825e8fa9710b8b", null ],
+    [ "real_t", "a00218.html#ae853054b768347ead3c3a239cbd99bc5", null ],
+    [ "weight_t", "a00218.html#a42b598e7c4f594fa60eae79b75896ddd", null ],
+    [ "weights_t", "a00218.html#a58bfb9902c057b9691dc3329391b2cc2", null ],
+    [ "ModifiedButterflyT", "a00218.html#a18defcc08980d311fe53fbb57b1c63ee", null ],
+    [ "ModifiedButterflyT", "a00218.html#a76aa04dd324557bad4acf1f8610cb142", null ],
+    [ "~ModifiedButterflyT", "a00218.html#a95fbb2406cbeb58f30780a92af32760a", null ],
+    [ "cleanup", "a00218.html#ab4ad979e5bdaf16dab2f84063071857d", null ],
+    [ "init_weights", "a00218.html#a81b2612d667f5e1e4baa6678f6981b0d", null ],
+    [ "name", "a00218.html#a853805f6974853e9afe4159c56c3f094", null ],
+    [ "prepare", "a00218.html#a5cb2f2cf637a0c07a7fab9a2fcedeb5c", null ],
+    [ "subdivide", "a00218.html#a8268bf3fb5ddd8a05fc1f3d128bee933", null ]
 ];

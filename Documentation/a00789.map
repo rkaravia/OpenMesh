@@ -1,4 +1,5 @@
-<map id="OpenMesh/Tools/Utils/TestingFramework.hh" name="OpenMesh/Tools/Utils/TestingFramework.hh">
-<area shape="rect" id="node3" href="$a00399.html" title="Config.hh" alt="" coords="5,121,83,154"/>
-<area shape="rect" id="node17" href="$a00506_source.html" title="OpenMesh/Core/Utils\l/Noncopyable.hh" alt="" coords="565,110,712,165"/>
+<map id="OpenMesh/Tools/Decimater/ModRoundnessT.hh" name="OpenMesh/Tools/Decimater/ModRoundnessT.hh">
+<area shape="rect" id="node2" href="$a00545.html" title="Base class for all decimation modules. " alt="" coords="187,95,372,136"/>
+<area shape="rect" id="node3" href="$a00522_source.html" title="OpenMesh/Core/Utils\l/Noncopyable.hh" alt="" coords="15,184,163,225"/>
+<area shape="rect" id="node5" href="$a00536.html" title="Provides data class CollapseInfoT for storing all information about a halfedge collapse. " alt="" coords="187,184,372,225"/>
 </map>

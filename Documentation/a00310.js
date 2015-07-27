@@ -1,10 +1,6 @@
 var a00310 =
 [
-    [ "Handle", "a00310.html#a47f2a8481af5fb379bb774fe690d00e0", null ],
-    [ "Inherited", "a00310.html#a0c3c792a1bbced480cdb306e2b49e9f2", null ],
-    [ "Self", "a00310.html#a9060e9aab6d2a6a7d23f4ce0d70dd29b", null ],
-    [ "VVc", "a00310.html#a306f55b09155c357fcf721f0a925292b", null ],
-    [ "raise", "a00310.html#a93db9e6626ba7f51eb726f6b85a9a386", null ],
-    [ "type", "a00310.html#a8d9b7dae6fd757578434dab918175290", null ],
-    [ "CompositeT< M >", "a00310.html#a7cacb6579bb9d17013cf9f2b0bd3770f", null ]
+    [ "is_ancestor", "a00310.html#a23378dca1b5d038176edb65bae9bc4d7", null ],
+    [ "set_vhierarchy_node_handle", "a00310.html#ac49c783c14ec6299eaed195aaaf90968", null ],
+    [ "vhierarchy_node_handle", "a00310.html#ac353a7824801e051d845853a8b659c3d", null ]
 ];

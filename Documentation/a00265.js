@@ -1,14 +1,16 @@
 var a00265 =
 [
-    [ "Handle", "a00265.html#a1408bd4f05aaaccd2782b2449f072486", null ],
-    [ "HEH", "a00265.html#a22403c9bb47b508919cd7eac52be861e", null ],
-    [ "Inherited", "a00265.html#a1edfb3624aae247f0d5315d4a71a0fb5", null ],
-    [ "Self", "a00265.html#aa9ec574408f80c4a1220ecb153eb7ff4", null ],
-    [ "VH", "a00265.html#a451a22aca1daebcb88ba328bdaca1ec6", null ],
-    [ "Tvv4", "a00265.html#a233ffb437a26ecce74a5c42a288c3fe3", null ],
-    [ "raise", "a00265.html#ab09301dedc33cf3b842bb37b899b3914", null ],
-    [ "raise", "a00265.html#a299416a502b33bac5015481d71d97461", null ],
-    [ "raise", "a00265.html#a64ed1ebc23688483b61f8c91d0ae0625", null ],
-    [ "type", "a00265.html#a7d9c8bc629c3f9683ae381aa4a20b2a1", null ],
-    [ "CompositeT< M >", "a00265.html#a7cacb6579bb9d17013cf9f2b0bd3770f", null ]
+    [ "mesh_t", "a00265.html#acc900fcb30e4243ecb60ee270ae9fd22", null ],
+    [ "real_t", "a00265.html#aad89e5e754ae100ff90a1abd02095b57", null ],
+    [ "SubdividerT", "a00265.html#a89341e7a735352adbb76f6842d3fab12", null ],
+    [ "SubdividerT", "a00265.html#a697277667735e023a5c62b7c406a2cad", null ],
+    [ "~SubdividerT", "a00265.html#a89c316211e4014b0705d34a141152f4f", null ],
+    [ "attach", "a00265.html#a4faaaf5cdd9273b4c28ef9f2a2e942ba", null ],
+    [ "cleanup", "a00265.html#a0538a5d4d1a38d3cf88796ed41776651", null ],
+    [ "detach", "a00265.html#a5e43f1fde3bd9588b4265fe1d1be6a8d", null ],
+    [ "name", "a00265.html#ab841456af600904618a0146e2ab65010", null ],
+    [ "operator()", "a00265.html#a2c3bb164d974ac4bcc9217a8368a7484", null ],
+    [ "operator()", "a00265.html#a3d294cdf55c4373e0793002dd8d86add", null ],
+    [ "prepare", "a00265.html#a83f6bde97d824c799cc3a2ee4f137ffb", null ],
+    [ "subdivide", "a00265.html#aacf8b2b63d1512d3c174fbe1781ee311", null ]
 ];

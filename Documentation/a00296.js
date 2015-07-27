@@ -1,7 +1,6 @@
 var a00296 =
 [
-    [ "Refs", "a00296.html#a1e5f6c61e62ce8fcf6e05ecfa22d76e8", null ],
-    [ "VertexT", "a00296.html#ac714e165662433c27dbc482b7a524201", null ],
-    [ "halfedge_handle", "a00296.html#a1d4c3d3ed2a845f8533dd2612c1ec663", null ],
-    [ "set_halfedge_handle", "a00296.html#a2e37f87e0ff740f42d6e700ccc5b71b1", null ]
+    [ "typed_size", "a00296.html#a186c232aafe53d979409d1e9f1bec068", null ],
+    [ "value_type", "a00296.html#accc8219baba45019e358a5a2a852b522", null ],
+    [ "vector_type", "a00296.html#acf484be437b0760879d820b2c94fc2bb", null ]
 ];

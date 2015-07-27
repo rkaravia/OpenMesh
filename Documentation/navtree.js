@@ -2,8 +2,8 @@ var NAVTREE =
 [
   [ "OpenMesh", "index.html", [
     [ "OpenMesh Documentation", "index.html", "index" ],
-    [ "Todo List", "a00705.html", null ],
-    [ "Deprecated List", "a00707.html", null ],
+    [ "Todo List", "a00742.html", null ],
+    [ "Deprecated List", "a00744.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
@@ -23,7 +23,7 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
+        [ "Typedefs", "functions_type.html", "functions_type" ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
         [ "Related Functions", "functions_rela.html", null ]
@@ -42,22 +42,23 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"a00078.html#a2e264db47f828e7d233e5320499995ad",
-"a00081.html#a172b2ad9e5189e2589d363c419092965",
-"a00088.html#a595829a11c5baac7a58a2c32c9689ccf",
-"a00100.html#a3ab11106b481ef40df9e2bb294cbc7d0",
-"a00129.html#a698f28550ea2a834192ccd5ef1a049f0",
-"a00162.html#a0301e549e20ae4fb7476366c96ef119e",
-"a00181.html#a2927f19f8b8425cf7938342c23b239b7",
-"a00193.html#ab8f81f809bef0cecd4fc537a6319588f",
-"a00210.html#af4f40b99ab088afe24cf10e9b3cda469",
-"a00226.html#a4a1e926552238cc5c5221ad4c7f32006",
-"a00230.html#acce77d4fd8f47d063a5f2f51a4327a44",
-"a00242.html#a259045b807b2509999563f9fc21d250f",
-"a00256.html#abb17fa9e855c08444cfdd842a893f74e",
-"a00291.html#a0b99c174141169827de8da5326f40e46",
-"a00312_source.html",
-"a00563_source.html"
+"a00081.html#ade66067117a028dadbd6f6fcba57b7fea8c7256fe39a9e1c7c1c4f575d41bb5bf",
+"a00085.html#a013bceb30351e7b5c92ced7df5d47c9a",
+"a00091.html#a2ba3fc3c6592669fd10c75ef22989083",
+"a00101.html#ae84b68aef1eadc265af487ff3eaaa148",
+"a00128.html#a96ea13d376c135f2b43d88de8360c766",
+"a00168.html#acab882b4d902e022c4f33f0fa3305c76",
+"a00190.html#a12fa6a51caaee41796501a106ed3100c",
+"a00196.html#aad3108336bda6bc7a6a70b53cca3a43a",
+"a00220.html#ab5a127bbc5af7d2ec291ff09404b0030",
+"a00240.html#a057718868453662d2989c0b05ef05943",
+"a00240.html#a9ca5417be1a5bbd673711327945bbfb4",
+"a00245.html#a3df25e822cf0df63c47bb18771c78162",
+"a00256.html#a6015b1bab47e1bbff4882f86e5616809",
+"a00270.html#adef5b1eaa33d1e25481314372fe7a213",
+"a00304.html#a6ff404699ab2fbc45b3987e20218617a",
+"a00396_source.html",
+"a00589_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

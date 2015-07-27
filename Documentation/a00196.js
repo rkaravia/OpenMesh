@@ -1,18 +1,18 @@
 var a00196 =
 [
-    [ "Base", "a00196.html#a5c76643dd193c779059ebec1ed42d386", null ],
-    [ "MeshViewerWidget", "a00196.html#ac9c2d9965e20c5af25478cde6d3f72de", null ],
-    [ "MeshViewerWidget", "a00196.html#abb3882da8de0f1d08d652a14313e9515", null ],
-    [ "~MeshViewerWidget", "a00196.html#a4c7935b5fc4a77bb83e640d678c256bb", null ],
-    [ "open_mesh", "a00196.html#a87107d907664aa6c362d4ed93f080d6c", null ],
-    [ "open_mesh_gui", "a00196.html#a1783d2f5d3b4999c86542da77f3a32a6", null ],
-    [ "open_texture_gui", "a00196.html#a6a06156800f25060c9582714982a53a5", null ],
-    [ "options", "a00196.html#a449b6ea26ecc5830814a253833cb2647", null ],
-    [ "options", "a00196.html#a9e6390dbea689e49d875e372dbf4689c", null ],
-    [ "orig_mesh", "a00196.html#a8d146f226f7b0dd2decbc8dbc649b0e0", null ],
-    [ "orig_mesh", "a00196.html#a3caa60708611aad581a8a7de8bded32e", null ],
-    [ "query_open_mesh_file", "a00196.html#a23043d3235cf6ed2016ea244f4a84371", null ],
-    [ "query_open_texture_file", "a00196.html#a4338053166a02fc202db1545ffb27d70", null ],
-    [ "setOptions", "a00196.html#ab220bc2ed62015983c2dab514e0dfb8a", null ],
-    [ "orig_mesh_", "a00196.html#a29d702215faeb1c2a5ad1dc4186a9ade", null ]
+    [ "Scalar", "a00196.html#a0f815ec9bb2e657f7a3f84d878f9ff5f", null ],
+    [ "cache_size", "a00196.html#a285ea39cbde7d5cdc5700c77d3e513a3aaa5389783efd7272bfddc26c9e065e34", null ],
+    [ "LoopSchemeMaskT", "a00196.html#a450184736639728777d2a042e1fd4d2c", null ],
+    [ "cache_weights", "a00196.html#a10b947070422ff2faff866ec549ea16f", null ],
+    [ "dump", "a00196.html#a0b20b73b3e1d2085170c4f4a19d971a5", null ],
+    [ "limit_weight", "a00196.html#a3806e0ec9a24f1c2e6ac6bbe9c85c41a", null ],
+    [ "proj_weight", "a00196.html#acbdea978ae019757ddbff2dbf9f5f170", null ],
+    [ "step_weight", "a00196.html#ad58fa94c6ca6038adb2ce964d0d18513", null ],
+    [ "tang0_weight", "a00196.html#aac15dc2b5e4b57b53cc225fbe8fd1efd", null ],
+    [ "tang1_weight", "a00196.html#ab4ca5c047cd362258939e37875d73a7c", null ],
+    [ "limit_weights_", "a00196.html#a8fc9781741937caeb34fac4abf252e05", null ],
+    [ "proj_weights_", "a00196.html#a201247c73dbc940b06adfbf6b6661af3", null ],
+    [ "step_weights_", "a00196.html#aad3108336bda6bc7a6a70b53cca3a43a", null ],
+    [ "tang0_weights_", "a00196.html#a33077b36397d36ada75a5bbdbb2479f2", null ],
+    [ "tang1_weights_", "a00196.html#a9f3a55d7d78f363622f60b1b31ceba08", null ]
 ];

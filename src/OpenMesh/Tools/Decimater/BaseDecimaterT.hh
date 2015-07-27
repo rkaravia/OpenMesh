@@ -1,41 +1,48 @@
-/*===========================================================================*\
+/* ========================================================================= *
  *                                                                           *
  *                               OpenMesh                                    *
- *      Copyright (C) 2001-2014 by Computer Graphics Group, RWTH Aachen      *
- *                           www.openmesh.org                                *
+ *           Copyright (c) 2001-2015, RWTH-Aachen University                 *
+ *           Department of Computer Graphics and Multimedia                  *
+ *                          All rights reserved.                             *
+ *                            www.openmesh.org                               *
  *                                                                           *
  *---------------------------------------------------------------------------*
- *  This file is part of OpenMesh.                                           *
+ * This file is part of OpenMesh.                                            *
+ *---------------------------------------------------------------------------*
  *                                                                           *
- *  OpenMesh is free software: you can redistribute it and/or modify         *
- *  it under the terms of the GNU Lesser General Public License as           *
- *  published by the Free Software Foundation, either version 3 of           *
- *  the License, or (at your option) any later version with the              *
- *  following exceptions:                                                    *
+ * Redistribution and use in source and binary forms, with or without        *
+ * modification, are permitted provided that the following conditions        *
+ * are met:                                                                  *
  *                                                                           *
- *  If other files instantiate templates or use macros                       *
- *  or inline functions from this file, or you compile this file and         *
- *  link it with other files to produce an executable, this file does        *
- *  not by itself cause the resulting executable to be covered by the        *
- *  GNU Lesser General Public License. This exception does not however       *
- *  invalidate any other reasons why the executable file might be            *
- *  covered by the GNU Lesser General Public License.                        *
+ * 1. Redistributions of source code must retain the above copyright notice, *
+ *    this list of conditions and the following disclaimer.                  *
  *                                                                           *
- *  OpenMesh is distributed in the hope that it will be useful,              *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of           *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
- *  GNU Lesser General Public License for more details.                      *
+ * 2. Redistributions in binary form must reproduce the above copyright      *
+ *    notice, this list of conditions and the following disclaimer in the    *
+ *    documentation and/or other materials provided with the distribution.   *
  *                                                                           *
- *  You should have received a copy of the GNU LesserGeneral Public          *
- *  License along with OpenMesh.  If not,                                    *
- *  see <http://www.gnu.org/licenses/>.                                      *
+ * 3. Neither the name of the copyright holder nor the names of its          *
+ *    contributors may be used to endorse or promote products derived from   *
+ *    this software without specific prior written permission.               *
  *                                                                           *
-\*===========================================================================*/
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS       *
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED *
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A           *
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER *
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,  *
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,       *
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR        *
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF    *
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
+ *                                                                           *
+ * ========================================================================= */
 
 /*===========================================================================*\
  *                                                                           *
- *   $Revision: 990 $                                                         *
- *   $Date: 2014-02-05 10:01:07 +0100 (Mi, 05 Feb 2014) $                   *
+ *   $Revision: 1258 $                                                         *
+ *   $Date: 2015-04-28 15:07:46 +0200 (Di, 28 Apr 2015) $                   *
  *                                                                           *
 \*===========================================================================*/
 
@@ -59,6 +66,7 @@
 #include <OpenMesh/Core/Utils/Property.hh>
 #include <OpenMesh/Tools/Decimater/ModBaseT.hh>
 #include <OpenMesh/Core/Utils/Noncopyable.hh>
+#include <OpenMesh/Tools/Decimater/Observer.hh>
 
 
 
@@ -113,6 +121,24 @@ public: //------------------------------------------------------ public methods
 
 public: //--------------------------------------------------- module management
 
+  /** \brief Add observer
+   *
+   * You can set an observer which is used as a callback to check the decimators progress and to
+   * abort it if necessary.
+   *
+   * @param _o Observer to be used
+   */
+  void set_observer(Observer* _o)
+  {
+      observer_ = _o;
+  }
+
+  /// Get current observer of a decimater
+  Observer* observer()
+  {
+      return observer_;
+  }
+
   /// access mesh. used in modules.
   Mesh& mesh() { return mesh_; }
 
@@ -166,7 +192,18 @@ public: //--------------------------------------------------- module management
 
 protected:
 
-  // Reset the initialized flag, and clear the bmodules_ and cmodule_
+  /// returns false, if abort requested by observer
+  bool notify_observer(size_t _n_collapses)
+  {
+    if (observer() && _n_collapses % observer()->get_interval() == 0)
+    {
+      observer()->notify(_n_collapses);
+      return !observer()->abort();
+    }
+    return true;
+  }
+
+  /// Reset the initialized flag, and clear the bmodules_ and cmodule_
   void set_uninitialized() {
     initialized_ = false;
     cmodule_ = 0;
@@ -219,21 +256,23 @@ protected: //---------------------------------------------------- private method
 private: //------------------------------------------------------- private data
 
 
-  // reference to mesh
+  /// reference to mesh
   Mesh&      mesh_;
 
-  // list of binary modules
+  /// list of binary modules
   ModuleList bmodules_;
 
-  // the current priority module
+  /// the current priority module
   Module*    cmodule_;
 
-  // list of all allocated modules (including cmodule_ and all of bmodules_)
+  /// list of all allocated modules (including cmodule_ and all of bmodules_)
   ModuleList all_modules_;
 
-  // Flag if all modules were initialized
+  /// Flag if all modules were initialized
   bool       initialized_;
 
+  /// observer
+  Observer* observer_;
 
 };
 

@@ -1,24 +1,10 @@
 var a00139 =
 [
-    [ "Base", "a00139.html#aeac9110c3392eac4d9d7680773d72957", null ],
-    [ "const_iterator", "a00139.html#a1b1ed6c017d4fbdc215af3ecf9fa21e3", null ],
-    [ "HandleContainer", "a00139.html#a65bd78aa0b23e87050ccfe7d202191dd", null ],
-    [ "iterator", "a00139.html#a49efb8c1fa955977dfc71ceaa7aaf1c4", null ],
-    [ "ExtStatusSetT", "a00139.html#ad22156bda66dc2d87162795675058351", null ],
-    [ "~ExtStatusSetT", "a00139.html#a9aaec24c237d9109580c0973fd667467", null ],
-    [ "back", "a00139.html#a5746569897f6e0b4416bde155e260de5", null ],
-    [ "back", "a00139.html#a68ea17ae5e3a1ca2e2133f72559616b8", null ],
-    [ "begin", "a00139.html#a5e13fa09bcafbec3509892d2585bfdbd", null ],
-    [ "begin", "a00139.html#ad157e7d19a1ea67daf3bf8beedfd8112", null ],
-    [ "clear", "a00139.html#a918562cb06428040feb1cc212c0607e8", null ],
-    [ "empty", "a00139.html#a68b51416b6f08c90d67422c3ec740832", null ],
-    [ "end", "a00139.html#a72f3f84cd60df7db6c2de0a9314143fb", null ],
-    [ "end", "a00139.html#a1af1be757b642014437d991a435cb30d", null ],
-    [ "erase", "a00139.html#ac279d84374f0e65f771367a14d198d58", null ],
-    [ "erase", "a00139.html#ab7f7ea4e2ed812dfde2daef7e513f8ef", null ],
-    [ "front", "a00139.html#aeef9f5efbecac0e293d602bf5fc3b3a1", null ],
-    [ "front", "a00139.html#a649b09a053ba2a714cf6edd437cd2b90", null ],
-    [ "insert", "a00139.html#af25ff4f3ed64b1d9f47b218a668f722b", null ],
-    [ "size", "a00139.html#a78d1bbb08c6a38640be65ac534c517da", null ],
-    [ "handles_", "a00139.html#a86fcae96d926d6678cc046843c1c22e8", null ]
+    [ "Handle", "a00139.html#ac7251c9f4592e57161de1eb445caba3c", null ],
+    [ "Inherited", "a00139.html#a7a9d1a1946fe3ace44e43938cd6d78cb", null ],
+    [ "Self", "a00139.html#af2bd4aacf8a53db62ab0b159f231287c", null ],
+    [ "EV", "a00139.html#adc354af6c24b6aa7fd718670e526e825", null ],
+    [ "raise", "a00139.html#a647334b7585fa1d9d6675bdf56f08484", null ],
+    [ "type", "a00139.html#a29794ad21b8f2be8e87f275b4e9498f3", null ],
+    [ "CompositeT< M >", "a00139.html#a7cacb6579bb9d17013cf9f2b0bd3770f", null ]
 ];

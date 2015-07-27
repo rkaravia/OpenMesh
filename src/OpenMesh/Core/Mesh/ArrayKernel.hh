@@ -1,41 +1,48 @@
-/*===========================================================================*\
+/* ========================================================================= *
  *                                                                           *
  *                               OpenMesh                                    *
- *      Copyright (C) 2001-2014 by Computer Graphics Group, RWTH Aachen      *
- *                           www.openmesh.org                                *
+ *           Copyright (c) 2001-2015, RWTH-Aachen University                 *
+ *           Department of Computer Graphics and Multimedia                  *
+ *                          All rights reserved.                             *
+ *                            www.openmesh.org                               *
  *                                                                           *
  *---------------------------------------------------------------------------*
- *  This file is part of OpenMesh.                                           *
+ * This file is part of OpenMesh.                                            *
+ *---------------------------------------------------------------------------*
  *                                                                           *
- *  OpenMesh is free software: you can redistribute it and/or modify         *
- *  it under the terms of the GNU Lesser General Public License as           *
- *  published by the Free Software Foundation, either version 3 of           *
- *  the License, or (at your option) any later version with the              *
- *  following exceptions:                                                    *
+ * Redistribution and use in source and binary forms, with or without        *
+ * modification, are permitted provided that the following conditions        *
+ * are met:                                                                  *
  *                                                                           *
- *  If other files instantiate templates or use macros                       *
- *  or inline functions from this file, or you compile this file and         *
- *  link it with other files to produce an executable, this file does        *
- *  not by itself cause the resulting executable to be covered by the        *
- *  GNU Lesser General Public License. This exception does not however       *
- *  invalidate any other reasons why the executable file might be            *
- *  covered by the GNU Lesser General Public License.                        *
+ * 1. Redistributions of source code must retain the above copyright notice, *
+ *    this list of conditions and the following disclaimer.                  *
  *                                                                           *
- *  OpenMesh is distributed in the hope that it will be useful,              *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of           *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
- *  GNU Lesser General Public License for more details.                      *
+ * 2. Redistributions in binary form must reproduce the above copyright      *
+ *    notice, this list of conditions and the following disclaimer in the    *
+ *    documentation and/or other materials provided with the distribution.   *
  *                                                                           *
- *  You should have received a copy of the GNU LesserGeneral Public          *
- *  License along with OpenMesh.  If not,                                    *
- *  see <http://www.gnu.org/licenses/>.                                      *
+ * 3. Neither the name of the copyright holder nor the names of its          *
+ *    contributors may be used to endorse or promote products derived from   *
+ *    this software without specific prior written permission.               *
  *                                                                           *
-\*===========================================================================*/
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS       *
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED *
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A           *
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER *
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,  *
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,       *
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR        *
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF    *
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
+ *                                                                           *
+ * ========================================================================= */
 
 /*===========================================================================*\
  *                                                                           *
- *   $Revision: 990 $                                                         *
- *   $Date: 2014-02-05 10:01:07 +0100 (Mi, 05 Feb 2014) $                   *
+ *   $Revision: 1308 $                                                         *
+ *   $Date: 2015-07-08 12:12:49 +0200 (Mi, 08 Jul 2015) $                   *
  *                                                                           *
 \*===========================================================================*/
 
@@ -377,20 +384,20 @@ public:
   }
 
   void set_prev_halfedge_handle(HalfedgeHandle _heh, HalfedgeHandle _pheh,
-                                GenProg::True)
+                                GenProg::TrueType)
   { halfedge(_heh).prev_halfedge_handle_ = _pheh; }
 
   void set_prev_halfedge_handle(HalfedgeHandle /* _heh */, HalfedgeHandle /* _pheh */,
-                                GenProg::False)
+                                GenProg::FalseType)
   {}
 
   HalfedgeHandle prev_halfedge_handle(HalfedgeHandle _heh) const
   { return prev_halfedge_handle(_heh, HasPrevHalfedge() ); }
 
-  HalfedgeHandle prev_halfedge_handle(HalfedgeHandle _heh, GenProg::True) const
+  HalfedgeHandle prev_halfedge_handle(HalfedgeHandle _heh, GenProg::TrueType) const
   { return halfedge(_heh).prev_halfedge_handle_; }
 
-  HalfedgeHandle prev_halfedge_handle(HalfedgeHandle _heh, GenProg::False) const
+  HalfedgeHandle prev_halfedge_handle(HalfedgeHandle _heh, GenProg::FalseType) const
   {
     if (is_boundary(_heh))
     {//iterating around the vertex should be faster than iterating the boundary
@@ -563,191 +570,6 @@ public:
     if ((refcount_fstatus_ > 0) && (! --refcount_fstatus_))
       remove_property(face_status_);
   }
-
-  /// --- StatusSet API ---
-
-  template <class Handle>
-  class StatusSetT
-  {
-  protected:
-    ArrayKernel&                            kernel_;
-
-  public:
-    const unsigned int                      bit_mask_;
-
-  public:
-    StatusSetT(ArrayKernel& _kernel, unsigned int _bit_mask)
-    : kernel_(_kernel), bit_mask_(_bit_mask)
-    {}
-
-    ~StatusSetT()
-    {}
-
-    inline bool                             is_in(Handle _hnd) const
-    { return kernel_.status(_hnd).is_bit_set(bit_mask_); }
-
-    inline void                             insert(Handle _hnd)
-    { kernel_.status(_hnd).set_bit(bit_mask_); }
-
-    inline void                             erase(Handle _hnd)
-    { kernel_.status(_hnd).unset_bit(bit_mask_); }
-
-    /// Note: 0(n) complexity
-    unsigned int                            size() const
-    {
-      unsigned int n_elements = kernel_.status_pph(Handle()).is_valid() ?
-                                kernel_.property(kernel_.status_pph(Handle())).n_elements() : 0;
-      unsigned int sz = 0;
-      for (unsigned int i = 0; i < n_elements; ++i)
-      {
-        sz += (unsigned int)is_in(Handle(i));
-      }
-      return sz;
-    }
-
-    /// Note: O(n) complexity
-    void                                    clear()
-    {
-      unsigned int n_elements = kernel_.status_pph(Handle()).is_valid() ?
-                                kernel_.property(kernel_.status_pph(Handle())).n_elements() : 0;
-      for (unsigned int i = 0; i < n_elements; ++i)
-      {
-        erase(Handle(i));
-      }
-    }
-  };
-
-  friend class StatusSetT<VertexHandle>;
-  friend class StatusSetT<EdgeHandle>;
-  friend class StatusSetT<FaceHandle>;
-  friend class StatusSetT<HalfedgeHandle>;
-
-  /// --- AutoStatusSet API ---
-
-  template <class Handle>
-  class AutoStatusSetT : public StatusSetT<Handle>
-  {
-  private:
-    typedef StatusSetT<Handle>              Base;
-  public:
-    AutoStatusSetT(ArrayKernel& _kernel)
-    : StatusSetT<Handle>(_kernel, _kernel.pop_bit_mask(Handle()))
-    { /*assert(size() == 0);*/ } //the set should be empty on creation
-
-    ~AutoStatusSetT()
-    {
-      //assert(size() == 0);//the set should be empty on leave?
-      Base::kernel_.push_bit_mask(Handle(), Base::bit_mask_);
-    }
-  };
-
-  friend class AutoStatusSetT<VertexHandle>;
-  friend class AutoStatusSetT<EdgeHandle>;
-  friend class AutoStatusSetT<FaceHandle>;
-  friend class AutoStatusSetT<HalfedgeHandle>;
-
-  typedef AutoStatusSetT<VertexHandle>      VertexStatusSet;
-  typedef AutoStatusSetT<EdgeHandle>        EdgeStatusSet;
-  typedef AutoStatusSetT<FaceHandle>        FaceStatusSet;
-  typedef AutoStatusSetT<HalfedgeHandle>    HalfedgeStatusSet;
-
-  /// --- ExtStatusSet API --- (hybrid between a set and an array)
-
-  template <class Handle>
-  class ExtStatusSetT : public AutoStatusSetT<Handle>
-  {
-  public:
-    typedef AutoStatusSetT<Handle>          Base;
-
-  protected:
-    typedef std::vector<Handle>             HandleContainer;
-    HandleContainer                         handles_;
-
-  public:
-    typedef typename HandleContainer::iterator
-                                            iterator;
-    typedef typename HandleContainer::const_iterator
-                                            const_iterator;
-  public:
-    ExtStatusSetT(ArrayKernel& _kernel, size_t _capacity_hint = 0)
-    : Base(_kernel)
-    { handles_.reserve(_capacity_hint); }
-
-    ~ExtStatusSetT()
-    { clear(); }
-
-    //set API
-    // Complexity: O(1)
-    inline void                             insert(Handle _hnd)
-    {
-      if (!is_in(_hnd))
-      {
-        Base::insert(_hnd);
-        handles_.push_back(_hnd);
-      }
-    }
-
-    // Complexity: O(k), (k - number of the elements in the set)
-    inline void                             erase(Handle _hnd)
-    {
-      if (is_in(_hnd))
-      {
-        iterator it = std::find(begin(), end(), _hnd);
-        erase(it);
-      }
-    }
-
-    // Complexity: O(1)
-    inline void                             erase(iterator _it)
-    {
-      assert(_it != end() && is_in(*_it));
-      clear(*_it);
-      *_it = handles_.back();
-      _it.pop_back();
-    }
-
-    inline void                             clear()
-    {
-      for (iterator it = begin(); it != end(); ++it)
-      {
-        assert(is_in(*it));
-        Base::erase(*it);
-      }
-      handles_.clear();
-    }
-
-    /// Complexity: 0(1)
-    inline unsigned int                     size() const
-    { return handles_.size(); }
-    inline bool                             empty() const
-    { return handles_.empty(); }
-
-    //Vector API
-    inline iterator                         begin()
-    { return handles_.begin(); }
-    inline const_iterator                   begin() const
-    { return handles_.begin(); }
-
-    inline iterator                         end()
-    { return handles_.end(); }
-    inline const_iterator                   end() const
-    { return handles_.end(); }
-
-    inline Handle&                          front()
-    { return handles_.front(); }
-    inline const Handle&                    front() const
-    { return handles_.front(); }
-
-    inline Handle&                          back()
-    { return handles_.back(); }
-    inline const Handle&                    back() const
-    { return handles_.back(); }
-  };
-
-  typedef ExtStatusSetT<FaceHandle>         ExtFaceStatusSet;
-  typedef ExtStatusSetT<VertexHandle>       ExtVertexStatusSet;
-  typedef ExtStatusSetT<EdgeHandle>         ExtEdgeStatusSet;
-  typedef ExtStatusSetT<HalfedgeHandle>     ExtHalfedgeStatusSet;
 
 private:
   // iterators

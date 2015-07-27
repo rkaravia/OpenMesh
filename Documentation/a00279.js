@@ -1,6 +1,10 @@
 var a00279 =
 [
-    [ "typed_size", "a00279.html#aa4d29428ff0d96ab02cfd3c74102c3db", null ],
-    [ "value_type", "a00279.html#a1db774dd83a271413d405bfef4ff4282", null ],
-    [ "vector_type", "a00279.html#aed8a2401d84d657de349759fd8c87352", null ]
+    [ "Handle", "a00279.html#a991a0418a3c25c3d8d9e2e08c5d55c24", null ],
+    [ "Inherited", "a00279.html#a6200216ab002f4c09abbd5634a47db36", null ],
+    [ "Self", "a00279.html#a9140b07cb3e502085bdc38829b1509bb", null ],
+    [ "VdE", "a00279.html#aafdd40a51416fd139fd7b0acfa8406c3", null ],
+    [ "raise", "a00279.html#af5adec78b66f9c28026186309fc34a5f", null ],
+    [ "type", "a00279.html#a9cd59c0f70d85bcd28aced985bb9e250", null ],
+    [ "CompositeT< M >", "a00279.html#a7cacb6579bb9d17013cf9f2b0bd3770f", null ]
 ];

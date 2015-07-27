@@ -1,28 +1,28 @@
 var dir_617ecf4707934de2318090466f038e83 =
 [
     [ "Composite", "dir_3cde2ca7af9740c5b0d23b8cc04dfa69.html", "dir_3cde2ca7af9740c5b0d23b8cc04dfa69" ],
-    [ "CatmullClarkT.hh", "a00565.html", [
-      [ "CatmullClarkT", "a00098.html", "a00098" ]
+    [ "CatmullClarkT.hh", "a00584.html", [
+      [ "CatmullClarkT", "a00101.html", "a00101" ]
     ] ],
-    [ "CompositeLoopT.hh", "a00566.html", [
-      [ "CompositeLoopT", "a00107.html", "a00107" ],
-      [ "EVCoeff", "a00137.html", "a00137" ],
-      [ "compute_weight", "a00113.html", "a00113" ]
+    [ "CompositeLoopT.hh", "a00585.html", [
+      [ "CompositeLoopT", "a00111.html", "a00111" ],
+      [ "EVCoeff", "a00141.html", "a00141" ],
+      [ "compute_weight", "a00117.html", "a00117" ]
     ] ],
-    [ "CompositeSqrt3T.hh", "a00567.html", [
-      [ "CompositeSqrt3T", "a00108.html", "a00108" ],
-      [ "FVCoeff", "a00152.html", "a00152" ],
-      [ "compute_weight", "a00114.html", "a00114" ]
+    [ "CompositeSqrt3T.hh", "a00586.html", [
+      [ "CompositeSqrt3T", "a00112.html", "a00112" ],
+      [ "FVCoeff", "a00155.html", "a00155" ],
+      [ "compute_weight", "a00118.html", "a00118" ]
     ] ],
-    [ "LongestEdgeT.hh", "a00568.html", [
-      [ "CompareLengthFunction", "a00106.html", "a00106" ],
-      [ "LongestEdgeT", "a00183.html", "a00183" ]
+    [ "LongestEdgeT.hh", "a00587.html", [
+      [ "CompareLengthFunction", "a00110.html", "a00110" ],
+      [ "LongestEdgeT", "a00195.html", "a00195" ]
     ] ],
-    [ "LoopT.hh", "a00569.html", "a00569" ],
-    [ "ModifiedButterFlyT.hh", "a00570.html", [
-      [ "ModifiedButterflyT", "a00205.html", "a00205" ]
+    [ "LoopT.hh", "a00588.html", "a00588" ],
+    [ "ModifiedButterFlyT.hh", "a00589.html", [
+      [ "ModifiedButterflyT", "a00218.html", "a00218" ]
     ] ],
-    [ "Sqrt3InterpolatingSubdividerLabsikGreinerT.hh", "a00571.html", "a00571" ],
-    [ "Sqrt3T.hh", "a00572.html", "a00572" ],
-    [ "SubdividerT.hh", "a00573.html", "a00573" ]
+    [ "Sqrt3InterpolatingSubdividerLabsikGreinerT.hh", "a00590.html", "a00590" ],
+    [ "Sqrt3T.hh", "a00591.html", "a00591" ],
+    [ "SubdividerT.hh", "a00592.html", "a00592" ]
 ];

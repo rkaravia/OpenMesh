@@ -1,4 +1,4 @@
 var a00167 =
 [
-    [ "HalfedgeHandle", "a00167.html#a624b9ea822181c89bf9e685283659161", null ]
+    [ "GenericCirculator_DereferenciabilityCheck", "a00167.html#a688750c32ccf34089ce98999a06448de", null ]
 ];

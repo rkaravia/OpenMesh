@@ -1,53 +1,57 @@
 var dir_80f26c7d87f9f73a44fbb7bc7b8fb5a6 =
 [
-    [ "BaseDecimaterT.hh", "a00518.html", [
-      [ "BaseDecimaterModule", "a00084.html", null ],
-      [ "BaseDecimaterT", "a00085.html", "a00085" ]
+    [ "BaseDecimaterT.hh", "a00535.html", [
+      [ "BaseDecimaterModule", "a00087.html", null ],
+      [ "BaseDecimaterT", "a00088.html", "a00088" ]
     ] ],
-    [ "CollapseInfoT.hh", "a00519.html", [
-      [ "CollapseInfoT", "a00103.html", "a00103" ]
+    [ "CollapseInfoT.hh", "a00536.html", [
+      [ "CollapseInfoT", "a00107.html", "a00107" ]
     ] ],
-    [ "DecimaterT.cc", "a00520.html", "a00520" ],
-    [ "DecimaterT.hh", "a00521.html", [
-      [ "DecimaterT", "a00120.html", "a00120" ],
-      [ "HeapInterface", "a00171.html", "a00171" ]
+    [ "DecimaterT.cc", "a00537.html", "a00537" ],
+    [ "DecimaterT.hh", "a00538.html", [
+      [ "DecimaterT", "a00124.html", "a00124" ],
+      [ "HeapInterface", "a00182.html", "a00182" ]
     ] ],
-    [ "McDecimaterT.cc", "a00522.html", "a00522" ],
-    [ "McDecimaterT.hh", "a00523.html", [
-      [ "McDecimaterT", "a00186.html", "a00186" ]
+    [ "McDecimaterT.cc", "a00539.html", "a00539" ],
+    [ "McDecimaterT.hh", "a00540.html", [
+      [ "McDecimaterT", "a00198.html", "a00198" ]
     ] ],
-    [ "MixedDecimaterT.cc", "a00524.html", "a00524" ],
-    [ "MixedDecimaterT.hh", "a00525_source.html", null ],
-    [ "ModAspectRatioT.cc", "a00526.html", "a00526" ],
-    [ "ModAspectRatioT.hh", "a00527.html", [
-      [ "ModAspectRatioT", "a00199.html", "a00199" ]
+    [ "MixedDecimaterT.cc", "a00541.html", "a00541" ],
+    [ "MixedDecimaterT.hh", "a00542_source.html", null ],
+    [ "ModAspectRatioT.cc", "a00543.html", "a00543" ],
+    [ "ModAspectRatioT.hh", "a00544.html", [
+      [ "ModAspectRatioT", "a00212.html", "a00212" ]
     ] ],
-    [ "ModBaseT.hh", "a00528.html", "a00528" ],
-    [ "ModEdgeLengthT.cc", "a00529.html", "a00529" ],
-    [ "ModEdgeLengthT.hh", "a00530.html", [
-      [ "ModEdgeLengthT", "a00202.html", "a00202" ]
+    [ "ModBaseT.hh", "a00545.html", "a00545" ],
+    [ "ModEdgeLengthT.cc", "a00546.html", "a00546" ],
+    [ "ModEdgeLengthT.hh", "a00547.html", [
+      [ "ModEdgeLengthT", "a00215.html", "a00215" ]
     ] ],
-    [ "ModHausdorffT.cc", "a00531.html", "a00531" ],
-    [ "ModHausdorffT.hh", "a00532.html", [
-      [ "ModHausdorffT", "a00204.html", "a00204" ]
+    [ "ModHausdorffT.cc", "a00548.html", "a00548" ],
+    [ "ModHausdorffT.hh", "a00549.html", [
+      [ "ModHausdorffT", "a00217.html", "a00217" ]
     ] ],
-    [ "ModIndependentSetsT.hh", "a00533_source.html", null ],
-    [ "ModNormalDeviationT.hh", "a00534.html", [
-      [ "ModNormalDeviationT", "a00207.html", "a00207" ]
+    [ "ModIndependentSetsT.hh", "a00550_source.html", null ],
+    [ "ModNormalDeviationT.hh", "a00551.html", [
+      [ "ModNormalDeviationT", "a00220.html", "a00220" ]
     ] ],
-    [ "ModNormalFlippingT.hh", "a00535.html", [
-      [ "ModNormalFlippingT", "a00208.html", "a00208" ]
+    [ "ModNormalFlippingT.hh", "a00552.html", [
+      [ "ModNormalFlippingT", "a00221.html", "a00221" ]
     ] ],
-    [ "ModProgMeshT.cc", "a00536.html", "a00536" ],
-    [ "ModProgMeshT.hh", "a00537.html", [
-      [ "ModProgMeshT", "a00209.html", "a00209" ],
-      [ "Info", "a00176.html", "a00176" ]
+    [ "ModProgMeshT.cc", "a00553.html", "a00553" ],
+    [ "ModProgMeshT.hh", "a00554.html", [
+      [ "ModProgMeshT", "a00222.html", "a00222" ],
+      [ "Info", "a00187.html", "a00187" ]
     ] ],
-    [ "ModQuadricT.cc", "a00538.html", "a00538" ],
-    [ "ModQuadricT.hh", "a00539.html", [
-      [ "ModQuadricT", "a00210.html", "a00210" ]
+    [ "ModQuadricT.cc", "a00555.html", "a00555" ],
+    [ "ModQuadricT.hh", "a00556.html", [
+      [ "ModQuadricT", "a00223.html", "a00223" ]
     ] ],
-    [ "ModRoundnessT.hh", "a00540.html", [
-      [ "ModRoundnessT", "a00211.html", "a00211" ]
+    [ "ModRoundnessT.hh", "a00557.html", [
+      [ "ModRoundnessT", "a00224.html", "a00224" ]
+    ] ],
+    [ "Observer.cc", "a00558.html", null ],
+    [ "Observer.hh", "a00559.html", [
+      [ "Observer", "a00232.html", "a00232" ]
     ] ]
 ];

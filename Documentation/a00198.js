@@ -1,14 +1,17 @@
 var a00198 =
 [
-    [ "CollapseInfo", "a00198.html#a88c5ffbe7d747ad3e90fcd32e9951b1c", null ],
-    [ "Mesh", "a00198.html#a9617c474f3118aad86f5f6695c5d03b2", null ],
-    [ "Module", "a00198.html#a729fab1aef13345727eb2f701beea745", null ],
-    [ "ModuleList", "a00198.html#a74adb268781e75a09eddb182e587b513", null ],
-    [ "ModuleListIterator", "a00198.html#a683d3ae2afa7e435737afae97575e543", null ],
-    [ "Self", "a00198.html#a1c7bb630a92dbc6c7f344a1522b21406", null ],
-    [ "MixedDecimaterT", "a00198.html#a3d9cb8dbee8294357f1ca9003f08d3a8", null ],
-    [ "~MixedDecimaterT", "a00198.html#a8af89fade2619e7ca14203c44b05cf12", null ],
-    [ "decimate", "a00198.html#a4dd84571cc11d67b43cbb139373d335f", null ],
-    [ "decimate_to", "a00198.html#a1fe2c6c2b3a63f00ca99b521c6fc2e42", null ],
-    [ "decimate_to_faces", "a00198.html#a649cc8f6cd7d423ee44374731f671494", null ]
+    [ "CollapseInfo", "a00198.html#a8cff5875e1e456667f0ca05420ca3e92", null ],
+    [ "Mesh", "a00198.html#a3054af0c7659c3f27f693018b131cd0c", null ],
+    [ "Module", "a00198.html#a6501d09092b4df14a3e46a7a161f9337", null ],
+    [ "ModuleList", "a00198.html#ad056e5c852766bec7e05d23f59c1b9ba", null ],
+    [ "ModuleListIterator", "a00198.html#a6dc3f96d74cf75d323ea940027e3974d", null ],
+    [ "Self", "a00198.html#a5950abd4cad1bf61e0e0a9daba42d3ce", null ],
+    [ "McDecimaterT", "a00198.html#afe1195415c6af21ccf2a887311f049ed", null ],
+    [ "~McDecimaterT", "a00198.html#a61aed0a3dbbe2d939c2a99e5f3533454", null ],
+    [ "decimate", "a00198.html#a970cfba9e739a07ff77fa1969e97ad82", null ],
+    [ "decimate_constraints_only", "a00198.html#abb7c3b986b8319da869023e2c1dfc44b", null ],
+    [ "decimate_to", "a00198.html#acdaedd58779309579511a37ff4520e54", null ],
+    [ "decimate_to_faces", "a00198.html#a24b41676c8b93a5587a2bb36dbfb0b94", null ],
+    [ "samples", "a00198.html#ac5d8a59149367a5e8494b352d505c062", null ],
+    [ "set_samples", "a00198.html#a9ffdd544cc357da5ab7df13238426987", null ]
 ];

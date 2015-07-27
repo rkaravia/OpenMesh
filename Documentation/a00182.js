@@ -1,13 +1,8 @@
 var a00182 =
 [
-    [ "Component", "a00182.html#ac029c85447cf27b03610b82f205617f9", null ],
-    [ "Continuity", "a00182.html#ac5d70a21b3648c3008a61b7bd36144d3", null ],
-    [ "EdgeHandle", "a00182.html#abfd32bedf13199aae600fca7a978860d", null ],
-    [ "Scalar", "a00182.html#a3bb552f3fd85941ffe29619b2963c452", null ],
-    [ "VertexHandle", "a00182.html#ace84fcacb7ee3a3f976731c40d29320c", null ],
-    [ "LaplaceSmootherT", "a00182.html#a23cab5c758072575ce4bd2a621269dba", null ],
-    [ "~LaplaceSmootherT", "a00182.html#a610f66837adaa01cb1181685cfb29be1", null ],
-    [ "initialize", "a00182.html#a40d3793714b195985eb64bcaa6f25f51", null ],
-    [ "weight", "a00182.html#a94f889cf9a28430b67204e8c0c07bb49", null ],
-    [ "weight", "a00182.html#a03482983ad3663f1566806823ec82bc6", null ]
+    [ "HeapInterface", "a00182.html#a36714be02e30ce16f99d80a9aa1058e0", null ],
+    [ "get_heap_position", "a00182.html#a14b71cf037f67bfd18cd91e453c5e78f", null ],
+    [ "greater", "a00182.html#a96ddff0625c4294fd70a3980bffdb17d", null ],
+    [ "less", "a00182.html#adcf3f9b88db6956ab0362343383c6b6e", null ],
+    [ "set_heap_position", "a00182.html#aef46307b0b84088a2e14a15e95fed714", null ]
 ];
