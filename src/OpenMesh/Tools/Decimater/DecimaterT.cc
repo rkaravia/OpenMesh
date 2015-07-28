@@ -346,8 +346,9 @@ size_t DecimaterT<Mesh>::decimate_to_faces(size_t _nv, size_t _nf) {
       heap_vertex(*s_it);
     }
 
+    const size_t n_faces_removed = mesh_.n_faces() - nf;
     // notify observer and stop if the observer requests it
-    if (!this->notify_observer(n_collapses))
+    if (!this->notify_observer(n_collapses, n_faces_removed))
         return n_collapses;
   }
 

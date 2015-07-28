@@ -171,7 +171,7 @@ TEST_F(OpenMeshDecimater, DecimateMeshStoppedByObserver) {
     UnittestObserver obs(2);
     decimaterDBG.set_observer(&obs);
     size_t removedVertices = 0;
-    removedVertices = decimaterDBG.decimate_to_faces(0, 0);
+    removedVertices = decimaterDBG.decimate(0);
     decimaterDBG.mesh().garbage_collection();
 
     EXPECT_TRUE(obs.abort()) << "Observer did not abort the decimater!";

@@ -193,11 +193,18 @@ public: //--------------------------------------------------- module management
 protected:
 
   /// returns false, if abort requested by observer
-  bool notify_observer(size_t _n_collapses)
+  bool notify_observer(size_t _n_collapses, size_t _n_faces_removed = 0)
   {
     if (observer() && _n_collapses % observer()->get_interval() == 0)
     {
-      observer()->notify(_n_collapses);
+      if (_n_faces_removed)
+      {
+        observer()->notify(_n_faces_removed);
+      }
+      else
+      {
+        observer()->notify(_n_collapses);
+      }
       return !observer()->abort();
     }
     return true;
